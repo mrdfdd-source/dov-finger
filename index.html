@@ -4,424 +4,322 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>דוב פינגר — מאמן מנטלי</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --dark:    #0d1a2e;
+            --navy:    #1a2744;
+            --teal:    #5bc8f5;
+            --teal2:   #1a9fd4;
+            --white:   #ffffff;
+            --off:     #f5f5f3;
+            --ink:     #111;
+            --mid:     #555;
+            --muted:   #999;
+            --border:  #e8e6e0;
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Rubik', sans-serif; direction: rtl; background: var(--white); color: var(--ink); }
 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: #ffffff;
-            color: #1a1a1a;
-            direction: rtl;
-        }
-
-        /* ===== ניווט ===== */
+        /* ── NAV ─────────────────────────────── */
         nav {
-            position: fixed;
-            top: 0; right: 0; left: 0;
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid #e8e8e8;
-            padding: 14px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            position: fixed; inset: 0 0 auto 0;
+            height: 58px;
+            background: #fff;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 48px;
             z-index: 100;
+            border-bottom: 1px solid #e8e6e0;
         }
-        .nav-logo {
-            display: flex;
-            align-items: center;
+        .nav-logo img { height: 32px; display: block; }
+        nav ul { display: flex; gap: 32px; list-style: none; align-items: center; }
+        nav a { font-size: 13px; color: #888; text-decoration: none; transition: color .2s; font-weight: 400; }
+        nav a:hover { color: var(--teal2); }
+        .nav-cta {
+            background: var(--teal2) !important;
+            color: #fff !important;
+            padding: 7px 20px; border-radius: 6px; font-weight: 500 !important;
+            transition: background .2s !important;
         }
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-        .nav-links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: #1a9fd4; }
+        .nav-cta:hover { background: #1590c0 !important; }
 
-        /* ===== הירו ===== */
+        /* ── HERO ────────────────────────────── */
         .hero {
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px 24px 80px;
-            background: #f8f9fb;
+            background: var(--navy);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: flex-start;
+            padding: 80px 48px 60px;
+            position: relative; overflow: hidden;
         }
-        .hero-label {
-            font-size: 11px;
-            color: #1a9fd4;
-            letter-spacing: 3px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            text-transform: uppercase;
+        /* background glow */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(91,200,245,.08) 0%, transparent 70%);
+            left: -100px; top: 50%; transform: translateY(-50%);
+            pointer-events: none;
+        }
+        /* big background number */
+        .hero-bg-text {
+            position: absolute;
+            left: -20px; bottom: -40px;
+            font-size: 280px; font-weight: 900;
+            color: rgba(91,200,245,.025);
+            line-height: 1; user-select: none;
+            letter-spacing: -10px;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 620px; text-align: right; }
+        .hero-eyebrow {
+            font-size: 11px; font-weight: 600; letter-spacing: 3px;
+            color: var(--teal); text-transform: uppercase; margin-bottom: 28px;
+            display: flex; align-items: center; gap: 10px; justify-content: flex-end;
+        }
+        .hero-eyebrow::before {
+            content: ''; display: block;
+            width: 24px; height: 2px; background: var(--teal);
         }
         .hero h1 {
-            font-size: clamp(34px, 6vw, 60px);
-            font-weight: 300;
-            line-height: 1.25;
-            margin-bottom: 24px;
-            max-width: 680px;
-            color: #111;
+            font-size: clamp(44px, 6vw, 72px);
+            font-weight: 700; line-height: 1.15;
+            color: var(--white); margin-bottom: 24px;
         }
-        .hero h1 b {
-            color: #1a9fd4;
-            font-weight: 800;
-        }
+        .hero h1 .hl { color: var(--teal); }
         .hero-sub {
-            font-size: 18px;
-            color: #777;
-            line-height: 1.8;
-            max-width: 480px;
+            font-size: 17px; font-weight: 300;
+            color: rgba(255,255,255,.55); line-height: 1.85;
             margin-bottom: 48px;
         }
-        .btn-primary {
-            display: inline-block;
-            background: #1a9fd4;
-            color: #fff;
-            padding: 16px 36px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: background 0.2s;
+        .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: flex-end; }
+        .btn-teal {
+            display: inline-block; background: var(--teal); color: var(--dark);
+            padding: 13px 30px; border-radius: 8px;
+            font-size: 15px; font-weight: 700; text-decoration: none;
+            transition: background .2s, transform .15s;
         }
-        .btn-primary:hover { background: #158bbf; }
-        .btn-sec-link {
-            display: inline-block;
-            color: #1a9fd4;
-            padding: 16px 24px;
-            font-size: 15px;
-            text-decoration: none;
-            margin-right: 8px;
+        .btn-teal:hover { background: #7fd4f8; transform: translateY(-1px); }
+        .btn-ghost {
+            display: inline-block; color: rgba(255,255,255,.5);
+            font-size: 14px; text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,.2);
+            padding-bottom: 2px; transition: color .2s, border-color .2s;
+        }
+        .btn-ghost:hover { color: var(--teal); border-color: var(--teal); }
+
+        /* scroll hint */
+        .scroll-hint {
+            position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            color: rgba(255,255,255,.3); font-size: 11px; letter-spacing: 2px;
+        }
+        .scroll-hint::after {
+            content: '';
+            display: block; width: 1px; height: 40px;
+            background: linear-gradient(to bottom, rgba(91,200,245,.4), transparent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+        @keyframes scrollLine { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+        /* ── CONTENT SECTIONS ────────────────── */
+        .s { padding: 88px 48px; max-width: 1080px; margin: 0 auto; }
+
+        .tag {
+            font-size: 11px; font-weight: 600; letter-spacing: 3px;
+            color: var(--teal2); text-transform: uppercase; margin-bottom: 16px;
+            display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+        }
+        .tag::after { content: ''; display: block; width: 20px; height: 2px; background: var(--teal2); }
+
+        h2 {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 700; line-height: 1.2; color: var(--ink);
+            margin-bottom: 28px; text-align: right;
+        }
+        .body-p {
+            font-size: 16px; font-weight: 300; color: var(--mid);
+            line-height: 1.9; margin-bottom: 16px;
+            max-width: 580px; margin-right: 0; text-align: right;
         }
 
-        /* ===== אודות ===== */
-        .section {
-            padding: 90px 24px;
-            max-width: 760px;
-            margin: 0 auto;
-        }
-        .section-label {
-            font-size: 11px;
-            color: #1a9fd4;
-            letter-spacing: 3px;
-            font-weight: 600;
-            margin-bottom: 14px;
-            text-transform: uppercase;
-        }
-        .section h2 {
-            font-size: clamp(26px, 4vw, 38px);
-            font-weight: 300;
-            line-height: 1.35;
-            margin-bottom: 28px;
-            color: #111;
-        }
-        .section h2 b { color: #1a9fd4; font-weight: 800; }
-        .section p {
-            font-size: 17px;
-            color: #555;
-            line-height: 1.85;
-            margin-bottom: 18px;
+        /* ── ABOUT ───────────────────────────── */
+        .about-wrap {
+            background: var(--white);
+            border-top: 4px solid var(--teal2);
         }
 
-        /* ===== מדריכים ===== */
-        .guides-section {
-            padding: 90px 24px;
-            background: #f8f9fb;
-        }
-        .guides-inner {
-            max-width: 920px;
-            margin: 0 auto;
-        }
+        /* ── GUIDES ──────────────────────────── */
+        .guides-wrap { background: var(--off); }
         .guides-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 16px;
-            margin-top: 44px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px; margin-top: 40px;
         }
-        .guide-card {
-            background: #fff;
-            border: 1px solid #e8e8e8;
-            border-radius: 16px;
-            padding: 26px;
-            transition: box-shadow 0.2s, border-color 0.2s;
+        .gc {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 26px 22px;
             text-decoration: none;
             display: block;
+            border: 1px solid var(--border);
+            transition: border-color .2s, box-shadow .2s;
+            text-align: right;
         }
-        .guide-card:hover {
-            box-shadow: 0 4px 20px rgba(26,159,212,0.12);
-            border-color: #5bc8f5;
-        }
-        .guide-emoji { font-size: 28px; margin-bottom: 14px; }
-        .guide-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-        }
-        .guide-desc {
-            font-size: 13px;
-            color: #888;
-            line-height: 1.65;
-        }
-        .guide-link {
-            font-size: 12px;
-            color: #1a9fd4;
-            margin-top: 14px;
-            display: block;
-            font-weight: 600;
-        }
+        .gc:hover { border-color: var(--teal2); box-shadow: 0 4px 20px rgba(26,159,212,.1); }
+        .gc-num { font-size: 11px; font-weight: 700; color: #ccc; letter-spacing: 1px; margin-bottom: 12px; }
+        .gc-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 8px; line-height: 1.4; }
+        .gc-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+        .gc-link { font-size: 12px; color: var(--teal2); font-weight: 600; margin-top: 14px; display: block; }
 
-        /* ===== אפליקציה ===== */
-        .app-outer {
-            padding: 90px 24px;
-            background: #fff;
+        /* ── APP ─────────────────────────────── */
+        .app-wrap {
+            background: var(--navy);
+            padding: 88px 48px;
         }
-        .app-section {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            gap: 56px;
-            align-items: center;
+        .app-inner { max-width: 1080px; margin: 0 auto; }
+        .app-tag { color: var(--teal) !important; }
+        .app-tag::after { background: var(--teal) !important; }
+        .app-wrap h2 { color: var(--white); }
+        .app-wrap .body-p { color: rgba(255,255,255,.5); }
+        .btn-teal-outline {
+            display: inline-block; border: 1.5px solid var(--teal);
+            color: var(--teal); padding: 12px 28px; border-radius: 8px;
+            font-size: 15px; font-weight: 600; text-decoration: none;
+            transition: background .2s, color .2s; margin-top: 8px;
         }
-        .app-text { flex: 1; }
-        .app-badge {
-            display: inline-block;
-            background: #e8f7fd;
-            border: 1px solid #5bc8f5;
-            border-radius: 8px;
-            padding: 5px 12px;
-            font-size: 11px;
-            color: #1a9fd4;
-            margin-bottom: 18px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-        .app-phone {
-            width: 130px;
-            height: 230px;
-            background: #f0f8fd;
-            border: 2px solid #c8e8f5;
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 48px;
-        }
+        .btn-teal-outline:hover { background: var(--teal); color: var(--dark); }
 
-        /* ===== עדויות ===== */
-        .testimonials-section {
-            padding: 90px 24px;
-            background: #f8f9fb;
+        /* ── TESTIMONIALS ────────────────────── */
+        .test-wrap { background: var(--white); }
+        .test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 40px; }
+        .tc {
+            border-top: 3px solid var(--border); padding-top: 24px;
         }
-        .testimonials-inner {
-            max-width: 920px;
-            margin: 0 auto;
-        }
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 16px;
-            margin-top: 44px;
-        }
-        .testimonial-card {
-            background: #fff;
-            border: 1px solid #e8e8e8;
-            border-radius: 16px;
-            padding: 28px;
-        }
-        .testimonial-text {
-            font-size: 15px;
-            color: #444;
-            line-height: 1.75;
-            margin-bottom: 18px;
-            font-style: italic;
-        }
-        .testimonial-name {
-            font-size: 13px;
-            color: #1a9fd4;
-            font-weight: 700;
-        }
+        .tc:first-child { border-top-color: var(--teal2); }
+        .tc-text { font-size: 15px; color: #333; line-height: 1.75; font-style: italic; margin-bottom: 16px; text-align: right; }
+        .tc-name { font-size: 12px; font-weight: 600; color: var(--teal2); letter-spacing: .5px; text-align: right; display: block; }
 
-        /* ===== צור קשר ===== */
-        .contact-section {
-            padding: 110px 24px;
-            text-align: center;
-            max-width: 560px;
-            margin: 0 auto;
+        /* ── CONTACT ─────────────────────────── */
+        .contact-wrap { background: var(--dark); }
+        .contact-inner {
+            max-width: 1080px; margin: 0 auto;
+            padding: 100px 48px; text-align: center;
         }
-        .contact-section h2 {
-            font-size: clamp(26px, 4vw, 38px);
-            font-weight: 300;
-            margin-bottom: 18px;
-            color: #111;
-        }
-        .contact-section h2 b { color: #1a9fd4; font-weight: 800; }
-        .contact-section p {
-            color: #777;
-            font-size: 17px;
-            line-height: 1.75;
-            margin-bottom: 40px;
-        }
+        .contact-inner .tag { justify-content: center; color: var(--teal); }
+        .contact-inner .tag::after { background: var(--teal); }
+        .contact-inner::before { content: none; }
+        .contact-inner h2 { color: var(--white); }
+        .contact-inner p { font-size: 17px; font-weight: 300; color: rgba(255,255,255,.5); line-height: 1.8; margin-bottom: 44px; text-align: center; }
 
-        /* ===== פוטר ===== */
-        footer {
-            text-align: center;
-            padding: 32px;
-            border-top: 1px solid #ebebeb;
-            font-size: 13px;
-            color: #bbb;
-        }
+        /* ── FOOTER ──────────────────────────── */
+        footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,.08); text-align: center; padding: 24px; font-size: 12px; color: rgba(255,255,255,.25); }
 
-        /* ===== מובייל ===== */
-        @media (max-width: 600px) {
-            .nav-links { display: none; }
-            .app-section { flex-direction: column; }
-            .app-phone { display: none; }
+        /* ── RESPONSIVE ──────────────────────── */
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; }
+            nav ul li:not(:last-child) { display: none; }
+            .hero { padding: 80px 20px 60px; align-items: flex-start; }
+            .hero-content { text-align: right; }
+            .hero-btns { justify-content: flex-start; }
+            .s { padding: 60px 20px; }
+            .guides-grid, .test-grid { grid-template-columns: 1fr; }
+            .app-wrap { padding: 60px 20px; }
+            .contact-inner { padding: 70px 20px; }
         }
     </style>
 </head>
 <body>
 
-<!-- ניווט -->
 <nav>
-    <div class="nav-logo">
-        <img src="dov-06.jpg" alt="דוב פינגר — מאמן מנטלי" height="40" style="display:block;">
-    </div>
-    <ul class="nav-links">
+    <div class="nav-logo"><img src="dov-06.jpg" alt="דוב פינגר"></div>
+    <ul>
         <li><a href="#about">אודות</a></li>
         <li><a href="#guides">מדריכים</a></li>
         <li><a href="#app">האפליקציה</a></li>
-        <li><a href="#contact">צור קשר</a></li>
+        <li><a href="#contact" class="nav-cta">בוא נדבר</a></li>
     </ul>
 </nav>
 
-<!-- הירו -->
+<!-- HERO -->
 <section class="hero">
-    <div class="hero-label">מאמן מנטלי</div>
-    <h1>הדרך להצלחה<br>היא <b>הדרך עצמה</b></h1>
-    <p class="hero-sub">כלים מנטליים ממשיים — לא פסיכולוגיה כבדה.<br>מתוך ניסיון אישי, בגובה העיניים.</p>
-    <div>
-        <a href="#contact" class="btn-primary">בוא נדבר →</a>
-        <a href="#guides" class="btn-sec-link">מדריכים חינמיים ↓</a>
-    </div>
-</section>
-
-<!-- אודות -->
-<section class="section" id="about">
-    <div class="section-label">אודות</div>
-    <h2>תכל'ס — <b>מי אני?</b></h2>
-    <p>שמי דוב פינגר. מאמן מנטלי בהסמכת מכללת וינגייט ולוינסקי. אבל ההסמכה היא רק הבסיס.</p>
-    <p>את האימונים אני עושה מתוך ניסיון וחוויה אישית. מה שאני מלמד — עברתי אותו בעצמי. לכן זה עובד.</p>
-    <p>אין כאן מילים גדולות. יש כאן כלים שאפשר ליישם מחר בבוקר.</p>
-</section>
-
-<!-- מדריכים -->
-<section class="guides-section" id="guides">
-    <div class="guides-inner">
-        <div class="section-label">אכמול מנטלי</div>
-        <h2 style="font-size: clamp(26px, 4vw, 38px); font-weight: 300; line-height: 1.35; color:#111;">מדריכים <b style="color:#1a9fd4;font-weight:800;">חינמיים</b></h2>
-        <div class="guides-grid">
-            <a class="guide-card" href="#">
-                <div class="guide-emoji">💪</div>
-                <div class="guide-title">ביטחון עצמי</div>
-                <div class="guide-desc">איך לבנות אמונה עצמית יציבה שלא תלויה באף אחד</div>
-                <span class="guide-link">קרא עכשיו ←</span>
-            </a>
-            <a class="guide-card" href="#">
-                <div class="guide-emoji">🔥</div>
-                <div class="guide-title">מוטיבציה והתמדה</div>
-                <div class="guide-desc">שמירה על אנרגיה ומיקוד לאורך עונה שלמה</div>
-                <span class="guide-link">קרא עכשיו ←</span>
-            </a>
-            <a class="guide-card" href="#">
-                <div class="guide-emoji">🎯</div>
-                <div class="guide-title">מיקוד וביצוע תחת לחץ</div>
-                <div class="guide-desc">התמודדות עם הסחות, טעויות ופחד מהחמצה</div>
-                <span class="guide-link">קרא עכשיו ←</span>
-            </a>
-            <a class="guide-card" href="#">
-                <div class="guide-emoji">🐟</div>
-                <div class="guide-title">טעויות וכישלונות</div>
-                <div class="guide-desc">שיטת דג הזהב — איך מתמודדים ומתקדמים הלאה</div>
-                <span class="guide-link">קרא עכשיו ←</span>
-            </a>
-            <a class="guide-card" href="#">
-                <div class="guide-emoji">⚡</div>
-                <div class="guide-title">להתמודד עם לחץ</div>
-                <div class="guide-desc">להפוך את הלחץ לבמה שלך</div>
-                <span class="guide-link">קרא עכשיו ←</span>
-            </a>
-            <a class="guide-card" href="#">
-                <div class="guide-emoji">🌱</div>
-                <div class="guide-title">בסיס יומי להצלחה</div>
-                <div class="guide-desc">שגרה מנטלית ופיזית שעובדת</div>
-                <span class="guide-link">קרא עכשיו ←</span>
-            </a>
+    <div class="hero-bg-text">בדרך</div>
+    <div class="hero-content">
+        <div class="hero-eyebrow">מאמן מנטלי</div>
+        <h1>הדרך להצלחה<br>היא <span class="hl">הדרך עצמה</span></h1>
+        <p class="hero-sub">כלים מנטליים ממשיים — לא פסיכולוגיה כבדה.<br>מתוך ניסיון אישי, בגובה העיניים.</p>
+        <div class="hero-btns">
+            <a href="#contact" class="btn-teal">בוא נדבר →</a>
+            <a href="#guides" class="btn-ghost">מדריכים חינמיים ↓</a>
         </div>
     </div>
+    <div class="scroll-hint">גלול</div>
 </section>
 
-<!-- אפליקציה -->
-<div class="app-outer" id="app">
-    <div class="app-section">
-        <div class="app-text">
-            <div class="app-badge">אפליקציה חינמית</div>
-            <h2 style="font-size: clamp(26px, 4vw, 38px); font-weight: 300; line-height: 1.35; margin-bottom: 16px; color:#111;">
-                שיטת <b style="color:#1a9fd4;font-weight:800;">בדרך</b>
-            </h2>
-            <p style="color: #666; font-size: 16px; line-height: 1.85; margin-bottom: 28px;">
-                7 דקות ביום. יעד אחד. מאמן AI שמלווה אותך.<br>
-                האפליקציה שבנויה על השיטה שלי.
-            </p>
-            <a href="https://mrdfdd-source.github.io/bderech-/" target="_blank" class="btn-primary">נסה עכשיו — חינם →</a>
-        </div>
-        <div class="app-phone">🗺️</div>
+<!-- ABOUT -->
+<div class="about-wrap" id="about">
+    <div class="s">
+        <div class="tag">אודות</div>
+        <h2>תכל'ס — מי אני?</h2>
+        <p class="body-p">שמי דוב פינגר. מאמן מנטלי בהסמכת מכללת וינגייט ולוינסקי. אבל ההסמכה היא רק הבסיס.</p>
+        <p class="body-p">את האימונים אני עושה מתוך ניסיון וחוויה אישית. מה שאני מלמד — עברתי אותו בעצמי. לכן זה עובד.</p>
+        <p class="body-p">אין כאן מילים גדולות. יש כאן כלים שאפשר ליישם מחר בבוקר.</p>
     </div>
 </div>
 
-<!-- עדויות -->
-<section class="testimonials-section" id="testimonials">
-    <div class="testimonials-inner">
-        <div class="section-label">מה אומרים</div>
-        <h2 style="font-size: clamp(26px, 4vw, 38px); font-weight: 300; line-height: 1.35; color:#111;">עדויות</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-text">"תוסיף כאן עדות אמיתית מלקוח"</div>
-                <div class="testimonial-name">— שם, תפקיד</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-text">"תוסיף כאן עדות אמיתית מלקוח"</div>
-                <div class="testimonial-name">— שם, תפקיד</div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-text">"תוסיף כאן עדות אמיתית מלקוח"</div>
-                <div class="testimonial-name">— שם, תפקיד</div>
-            </div>
+<!-- GUIDES -->
+<div class="guides-wrap" id="guides">
+    <div class="s">
+        <div class="tag">מדריכים חינמיים</div>
+        <h2>כלים שאפשר ליישם עכשיו</h2>
+        <div class="guides-grid">
+            <a class="gc" href="#"><div class="gc-num">01</div><div class="gc-title">ביטחון עצמי</div><div class="gc-desc">איך לבנות אמונה עצמית יציבה שלא תלויה באף אחד</div><span class="gc-link">קרא עכשיו ←</span></a>
+            <a class="gc" href="#"><div class="gc-num">02</div><div class="gc-title">מוטיבציה והתמדה</div><div class="gc-desc">שמירה על אנרגיה ומיקוד לאורך עונה שלמה</div><span class="gc-link">קרא עכשיו ←</span></a>
+            <a class="gc" href="#"><div class="gc-num">03</div><div class="gc-title">מיקוד תחת לחץ</div><div class="gc-desc">התמודדות עם הסחות, טעויות ופחד מהחמצה</div><span class="gc-link">קרא עכשיו ←</span></a>
+            <a class="gc" href="#"><div class="gc-num">04</div><div class="gc-title">טעויות וכישלונות</div><div class="gc-desc">שיטת דג הזהב — איך מתמודדים ומתקדמים הלאה</div><span class="gc-link">קרא עכשיו ←</span></a>
+            <a class="gc" href="#"><div class="gc-num">05</div><div class="gc-title">להתמודד עם לחץ</div><div class="gc-desc">להפוך את הלחץ לבמה שלך</div><span class="gc-link">קרא עכשיו ←</span></a>
+            <a class="gc" href="#"><div class="gc-num">06</div><div class="gc-title">בסיס יומי להצלחה</div><div class="gc-desc">שגרה מנטלית ופיזית שעובדת</div><span class="gc-link">קרא עכשיו ←</span></a>
         </div>
     </div>
-</section>
+</div>
 
-<!-- צור קשר -->
-<section class="contact-section" id="contact">
-    <div class="section-label">צור קשר</div>
-    <h2>מוכן <b>להתחיל?</b></h2>
-    <p>שיחת היכרות קצרה — בלי התחייבות.<br>תכל'ס, מה יש להפסיד?</p>
-    <a href="https://wa.me/972XXXXXXXXX" class="btn-primary" target="_blank">שלח הודעה בוואטסאפ →</a>
-</section>
+<!-- APP -->
+<div class="app-wrap" id="app">
+    <div class="app-inner">
+        <div class="tag app-tag">אפליקציה חינמית</div>
+        <h2>שיטת בדרך</h2>
+        <p class="body-p">7 דקות ביום. יעד אחד. מאמן AI שמלווה אותך.<br>האפליקציה שבנויה על השיטה שלי.</p>
+        <a href="https://mrdfdd-source.github.io/bderech-/" target="_blank" class="btn-teal-outline">נסה עכשיו — חינם →</a>
+    </div>
+</div>
 
-<footer>
-    © דוב פינגר — מאמן מנטלי · כל הזכויות שמורות
-</footer>
+<!-- TESTIMONIALS -->
+<div class="test-wrap" id="testimonials">
+    <div class="s">
+        <div class="tag">מה אומרים</div>
+        <h2>עדויות</h2>
+        <div class="test-grid">
+            <div class="tc"><p class="tc-text">"תוסיף כאן עדות אמיתית מלקוח"</p><span class="tc-name">— שם, תפקיד</span></div>
+            <div class="tc"><p class="tc-text">"תוסיף כאן עדות אמיתית מלקוח"</p><span class="tc-name">— שם, תפקיד</span></div>
+            <div class="tc"><p class="tc-text">"תוסיף כאן עדות אמיתית מלקוח"</p><span class="tc-name">— שם, תפקיד</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-wrap" id="contact">
+    <div class="contact-inner">
+        <div class="tag">צור קשר</div>
+        <h2>מוכן להתחיל?</h2>
+        <p>שיחת היכרות קצרה — בלי התחייבות.<br>תכל'ס, מה יש להפסיד?</p>
+        <a href="https://wa.me/972XXXXXXXXX" class="btn-teal" target="_blank">שלח הודעה בוואטסאפ →</a>
+    </div>
+</div>
+
+<footer>© דוב פינגר — מאמן מנטלי · כל הזכויות שמורות</footer>
 
 </body>
 </html>
