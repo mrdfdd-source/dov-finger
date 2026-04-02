@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דוב פינגר — מאמן מנטלי</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #1a2744;
+            color: #e0e0e0;
+            direction: rtl;
+        }
+
+        /* ===== ניווט ===== */
+        nav {
+            position: fixed;
+            top: 0; right: 0; left: 0;
+            background: rgba(26, 39, 68, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #1e3a5f;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: #5bc8f5;
+        }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #5bc8f5; }
+
+        /* ===== הירו ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 24px 60px;
+            background: linear-gradient(180deg, #0d1a2e 0%, #1a2744 100%);
+        }
+        .hero-label {
+            font-size: 11px;
+            color: #5bc8f5;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .hero h1 {
+            font-size: clamp(32px, 6vw, 56px);
+            font-weight: 300;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            max-width: 700px;
+        }
+        .hero h1 b {
+            color: #5bc8f5;
+            font-weight: 700;
+        }
+        .hero-sub {
+            font-size: 17px;
+            color: #888;
+            line-height: 1.7;
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+        .btn-primary {
+            display: inline-block;
+            background: #5bc8f5;
+            color: #1a2744;
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .btn-primary:hover { background: #7fd4f8; }
+        .btn-sec-link {
+            display: inline-block;
+            color: #5bc8f5;
+            padding: 16px 24px;
+            font-size: 15px;
+            text-decoration: none;
+            margin-right: 8px;
+        }
+
+        /* ===== אודות ===== */
+        .section {
+            padding: 80px 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .section-label {
+            font-size: 11px;
+            color: #5bc8f5;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .section h2 {
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 300;
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+        .section h2 b { color: #5bc8f5; font-weight: 700; }
+        .section p {
+            font-size: 16px;
+            color: #999;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        /* ===== מדריכים ===== */
+        .guides-section {
+            padding: 80px 24px;
+            background: #0d1a2e;
+        }
+        .guides-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 40px;
+        }
+        .guide-card {
+            background: #122040;
+            border: 1px solid #1e3a5a;
+            border-radius: 16px;
+            padding: 24px;
+            transition: border-color 0.2s;
+            text-decoration: none;
+            display: block;
+        }
+        .guide-card:hover { border-color: #5bc8f5; }
+        .guide-emoji { font-size: 28px; margin-bottom: 12px; }
+        .guide-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin-bottom: 8px;
+        }
+        .guide-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .guide-link {
+            font-size: 12px;
+            color: #5bc8f5;
+            margin-top: 12px;
+            display: block;
+        }
+
+        /* ===== אפליקציה ===== */
+        .app-section {
+            padding: 80px 24px;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            gap: 48px;
+            align-items: center;
+        }
+        .app-text { flex: 1; }
+        .app-badge {
+            display: inline-block;
+            background: #0d2245;
+            border: 1px solid #5bc8f5;
+            border-radius: 10px;
+            padding: 6px 14px;
+            font-size: 11px;
+            color: #5bc8f5;
+            margin-bottom: 16px;
+        }
+        .app-phone {
+            width: 140px;
+            height: 240px;
+            background: #0d1a2e;
+            border: 2px solid #1e3a5f;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 48px;
+        }
+
+        /* ===== עדויות ===== */
+        .testimonials-section {
+            padding: 80px 24px;
+            background: #0d1a2e;
+        }
+        .testimonials-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 40px;
+        }
+        .testimonial-card {
+            background: #122040;
+            border: 1px solid #1e3a5a;
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .testimonial-text {
+            font-size: 15px;
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+        .testimonial-name {
+            font-size: 13px;
+            color: #5bc8f5;
+            font-weight: 600;
+        }
+
+        /* ===== צור קשר ===== */
+        .contact-section {
+            padding: 100px 24px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-section h2 {
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+        .contact-section h2 b { color: #5bc8f5; font-weight: 700; }
+        .contact-section p {
+            color: #888;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 36px;
+        }
+
+        /* ===== פוטר ===== */
+        footer {
+            text-align: center;
+            padding: 32px;
+            border-top: 1px solid #1e3a5f;
+            font-size: 13px;
+            color: #444;
+        }
+
+        /* ===== מובייל ===== */
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .app-section { flex-direction: column; }
+            .app-phone { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ניווט -->
+<nav>
+    <div class="nav-logo">דוב פינגר</div>
+    <ul class="nav-links">
+        <li><a href="#about">אודות</a></li>
+        <li><a href="#guides">מדריכים</a></li>
+        <li><a href="#app">האפליקציה</a></li>
+        <li><a href="#contact">צור קשר</a></li>
+    </ul>
+</nav>
+
+<!-- הירו -->
+<section class="hero">
+    <div class="hero-label">מאמן מנטלי</div>
+    <h1>הדרך להצלחה<br>היא <b>הדרך עצמה</b></h1>
+    <p class="hero-sub">כלים מנטליים ממשיים — לא פסיכולוגיה כבדה.<br>מתוך ניסיון אישי, בגובה העיניים.</p>
+    <div>
+        <a href="#contact" class="btn-primary">בוא נדבר →</a>
+        <a href="#guides" class="btn-sec-link">מדריכים חינמיים ↓</a>
+    </div>
+</section>
+
+<!-- אודות -->
+<section class="section" id="about">
+    <div class="section-label">אודות</div>
+    <h2>תכל'ס — <b>מי אני?</b></h2>
+    <p>שמי דוב פינגר. מאמן מנטלי בהסמכת מכללת וינגייט ולוינסקי. אבל ההסמכה היא רק הבסיס.</p>
+    <p>את האימונים אני עושה מתוך ניסיון וחוויה אישית. מה שאני מלמד — עברתי אותו בעצמי. לכן זה עובד.</p>
+    <p>אין כאן מילים גדולות. יש כאן כלים שאפשר ליישם מחר בבוקר.</p>
+</section>
+
+<!-- מדריכים -->
+<section class="guides-section" id="guides">
+    <div class="guides-inner">
+        <div class="section-label">אכמול מנטלי</div>
+        <h2 style="font-size: clamp(24px, 4vw, 36px); font-weight: 300; line-height: 1.4;">מדריכים <b>חינמיים</b></h2>
+        <div class="guides-grid">
+            <a class="guide-card" href="#">
+                <div class="guide-emoji">💪</div>
+                <div class="guide-title">ביטחון עצמי</div>
+                <div class="guide-desc">איך לבנות אמונה עצמית יציבה שלא תלויה באף אחד</div>
+                <span class="guide-link">קרא עכשיו ←</span>
+            </a>
+            <a class="guide-card" href="#">
+                <div class="guide-emoji">🔥</div>
+                <div class="guide-title">מוטיבציה והתמדה</div>
+                <div class="guide-desc">שמירה על אנרגיה ומיקוד לאורך עונה שלמה</div>
+                <span class="guide-link">קרא עכשיו ←</span>
+            </a>
+            <a class="guide-card" href="#">
+                <div class="guide-emoji">🎯</div>
+                <div class="guide-title">מיקוד וביצוע תחת לחץ</div>
+                <div class="guide-desc">התמודדות עם הסחות, טעויות ופחד מהחמצה</div>
+                <span class="guide-link">קרא עכשיו ←</span>
+            </a>
+            <a class="guide-card" href="#">
+                <div class="guide-emoji">🐟</div>
+                <div class="guide-title">טעויות וכישלונות</div>
+                <div class="guide-desc">שיטת דג הזהב — איך מתמודדים ומתקדמים הלאה</div>
+                <span class="guide-link">קרא עכשיו ←</span>
+            </a>
+            <a class="guide-card" href="#">
+                <div class="guide-emoji">⚡</div>
+                <div class="guide-title">להתמודד עם לחץ</div>
+                <div class="guide-desc">להפוך את הלחץ לבמה שלך</div>
+                <span class="guide-link">קרא עכשיו ←</span>
+            </a>
+            <a class="guide-card" href="#">
+                <div class="guide-emoji">🌱</div>
+                <div class="guide-title">בסיס יומי להצלחה</div>
+                <div class="guide-desc">שגרה מנטלית ופיזית שעובדת</div>
+                <span class="guide-link">קרא עכשיו ←</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- אפליקציה -->
+<section id="app">
+    <div class="app-section">
+        <div class="app-text">
+            <div class="app-badge">אפליקציה חינמית</div>
+            <h2 style="font-size: clamp(24px, 4vw, 36px); font-weight: 300; line-height: 1.4; margin-bottom: 16px;">
+                שיטת <b>בדרך</b>
+            </h2>
+            <p style="color: #999; font-size: 16px; line-height: 1.8; margin-bottom: 24px;">
+                7 דקות ביום. יעד אחד. מאמן AI שמלווה אותך.<br>
+                האפליקציה שבנויה על השיטה שלי.
+            </p>
+            <a href="https://mrdfdd-source.github.io/bderech-/" target="_blank" class="btn-primary">נסה עכשיו — חינם →</a>
+        </div>
+        <div class="app-phone">🗺️</div>
+    </div>
+</section>
+
+<!-- עדויות -->
+<section class="testimonials-section" id="testimonials">
+    <div class="testimonials-inner">
+        <div class="section-label">מה אומרים</div>
+        <h2 style="font-size: clamp(24px, 4vw, 36px); font-weight: 300; line-height: 1.4;">עדויות</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-text">"תוסיף כאן עדות אמיתית מלקוח"</div>
+                <div class="testimonial-name">— שם, תפקיד</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">"תוסיף כאן עדות אמיתית מלקוח"</div>
+                <div class="testimonial-name">— שם, תפקיד</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">"תוסיף כאן עדות אמיתית מלקוח"</div>
+                <div class="testimonial-name">— שם, תפקיד</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- צור קשר -->
+<section class="contact-section" id="contact">
+    <div class="section-label">צור קשר</div>
+    <h2>מוכן <b>להתחיל?</b></h2>
+    <p>שיחת היכרות קצרה — בלי התחייבות.<br>תכל'ס, מה יש להפסיד?</p>
+    <a href="https://wa.me/972XXXXXXXXX" class="btn-primary" target="_blank">שלח הודעה בוואטסאפ →</a>
+</section>
+
+<footer>
+    © דוב פינגר — מאמן מנטלי · כל הזכויות שמורות
+</footer>
+
+</body>
+</html>
