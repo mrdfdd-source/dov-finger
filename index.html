@@ -9,374 +9,759 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --dark:    #0d1a2e;
-            --navy:    #1a2744;
-            --teal:    #5bc8f5;
-            --teal2:   #1a9fd4;
-            --white:   #ffffff;
-            --off:     #f5f5f3;
-            --ink:     #111;
-            --mid:     #555;
-            --muted:   #999;
-            --border:  #e8e6e0;
+            --dark:  #0d1a2e;
+            --navy:  #1a2744;
+            --teal:  #5bc8f5;
+            --teal2: #1a9fd4;
+            --white: #ffffff;
+            --off:   #f4f2ee;
+            --ink:   #111;
+            --mid:   #555;
+            --muted: #999;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { font-family: 'Rubik', sans-serif; direction: rtl; background: var(--white); color: var(--ink); }
 
-        /* ── NAV ─────────────────────────────── */
+        /* ── NAV ── */
         nav {
             position: fixed; inset: 0 0 auto 0;
-            height: 58px;
-            background: #fff;
+            height: 56px;
+            background: rgba(13,26,46,0.96);
+            backdrop-filter: blur(10px);
             display: flex; align-items: center; justify-content: space-between;
             padding: 0 48px;
             z-index: 100;
-            border-bottom: 1px solid #e8e6e0;
         }
-        .nav-logo img { height: 32px; display: block; }
-        nav ul { display: flex; gap: 32px; list-style: none; align-items: center; }
-        nav a { font-size: 13px; color: #888; text-decoration: none; transition: color .2s; font-weight: 400; }
-        nav a:hover { color: var(--teal2); }
-        .nav-cta {
-            background: var(--teal2) !important;
-            color: #fff !important;
-            padding: 7px 20px; border-radius: 6px; font-weight: 500 !important;
-            transition: background .2s !important;
-        }
-        .nav-cta:hover { background: #1590c0 !important; }
+        .nav-logo { display: flex; align-items: center; }
+        .nav-logo img { height: 36px; display: block; opacity: 0.85; transition: opacity .2s; }
+        .nav-logo:hover img { opacity: 1; }
 
-        /* ── HERO ────────────────────────────── */
+        /* Hero logo — no box */
+        .hero-logo img { filter: none; }
+        nav ul { display: flex; gap: 32px; list-style: none; align-items: center; }
+        nav a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color .2s; }
+        nav a:hover { color: var(--teal); }
+        .nav-cta {
+            color: var(--teal) !important;
+            border: 1px solid rgba(91,200,245,0.35);
+            padding: 6px 18px; border-radius: 6px;
+        }
+        .nav-cta:hover { background: rgba(91,200,245,0.08) !important; border-color: var(--teal) !important; }
+
+        /* ── HERO ── */
         .hero {
             min-height: 100vh;
-            background: var(--navy);
+            background: var(--dark);
             display: flex; flex-direction: column;
-            justify-content: center; align-items: flex-start;
-            padding: 80px 48px 60px;
+            justify-content: center; align-items: center;
+            padding: 56px 48px 96px;
+            text-align: center;
             position: relative; overflow: hidden;
         }
-        /* background glow */
-        .hero::before {
+        .hero::after {
             content: '';
-            position: absolute;
-            width: 600px; height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(91,200,245,.08) 0%, transparent 70%);
-            left: -100px; top: 50%; transform: translateY(-50%);
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 80% 55% at 50% 40%, rgba(91,200,245,0.07) 0%, transparent 65%);
             pointer-events: none;
         }
-        /* big background number */
-        .hero-bg-text {
-            position: absolute;
-            left: -20px; bottom: -40px;
-            font-size: 280px; font-weight: 900;
-            color: rgba(91,200,245,.025);
-            line-height: 1; user-select: none;
-            letter-spacing: -10px;
+        .hero-logo {
+            margin-bottom: 32px;
+            display: inline-block;
         }
-        .hero-content { position: relative; z-index: 1; max-width: 620px; text-align: right; }
-        .hero-eyebrow {
-            font-size: 11px; font-weight: 600; letter-spacing: 3px;
-            color: var(--teal); text-transform: uppercase; margin-bottom: 28px;
-            display: flex; align-items: center; gap: 10px; justify-content: flex-end;
+        .logo-vav {
+            position: relative; display: inline-block;
         }
-        .hero-eyebrow::before {
-            content: ''; display: block;
-            width: 24px; height: 2px; background: var(--teal);
+        .hero-logo-dots {
+            position: absolute; bottom: 72%; left: 50%; transform: translateX(-82%);
+            margin-bottom: 2px;
+        }
+        .hero-logo-dots img {
+            height: 28px; display: block;
+        }
+        .hero-logo-text {
+            display: flex; align-items: center; gap: 16px; direction: rtl;
+        }
+        .hero-logo-name {
+            font-size: 36px; font-weight: 700; color: #fff; letter-spacing: -0.5px;
+        }
+        .hero-logo-sep {
+            width: 1px; height: 30px; background: rgba(255,255,255,0.25);
+        }
+        .hero-logo-title {
+            font-size: 18px; font-weight: 400; color: rgba(255,255,255,0.5); letter-spacing: 0.5px;
         }
         .hero h1 {
-            font-size: clamp(44px, 6vw, 72px);
-            font-weight: 700; line-height: 1.15;
-            color: var(--white); margin-bottom: 24px;
+            font-size: clamp(40px, 7vw, 80px);
+            font-weight: 900; line-height: 1;
+            color: var(--white); letter-spacing: -2px;
         }
         .hero h1 .hl { color: var(--teal); }
+        .hero-rule {
+            width: 32px; height: 2px;
+            background: rgba(91,200,245,0.3);
+            margin: 32px auto;
+        }
         .hero-sub {
-            font-size: 17px; font-weight: 300;
-            color: rgba(255,255,255,.55); line-height: 1.85;
-            margin-bottom: 48px;
+            font-size: clamp(14px, 1.8vw, 17px); font-weight: 300;
+            color: rgba(255,255,255,0.42); line-height: 2;
+            max-width: 400px;
         }
-        .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: flex-end; }
-        .btn-teal {
-            display: inline-block; background: var(--teal); color: var(--dark);
-            padding: 13px 30px; border-radius: 8px;
+        /* Two audience buttons */
+        .hero-btns {
+            margin-top: 44px;
+            display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+        }
+        .btn-audience {
+            display: inline-block;
+            padding: 14px 36px; border-radius: 8px;
             font-size: 15px; font-weight: 700; text-decoration: none;
-            transition: background .2s, transform .15s;
+            cursor: pointer; border: none; font-family: 'Rubik', sans-serif;
+            transition: opacity .2s, transform .15s;
         }
-        .btn-teal:hover { background: #7fd4f8; transform: translateY(-1px); }
-        .btn-ghost {
-            display: inline-block; color: rgba(255,255,255,.5);
-            font-size: 14px; text-decoration: none;
-            border-bottom: 1px solid rgba(255,255,255,.2);
-            padding-bottom: 2px; transition: color .2s, border-color .2s;
+        .btn-aud-primary { background: var(--teal); color: var(--dark); }
+        .btn-aud-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+        .btn-aud-secondary {
+            background: transparent; color: rgba(255,255,255,0.75);
+            border: 1.5px solid rgba(255,255,255,0.2);
         }
-        .btn-ghost:hover { color: var(--teal); border-color: var(--teal); }
-
-        /* scroll hint */
+        .btn-aud-secondary:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
         .scroll-hint {
-            position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; gap: 6px;
-            color: rgba(255,255,255,.3); font-size: 11px; letter-spacing: 2px;
+            position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+            color: rgba(255,255,255,0.18); font-size: 10px; letter-spacing: 3px;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
         }
         .scroll-hint::after {
-            content: '';
-            display: block; width: 1px; height: 40px;
-            background: linear-gradient(to bottom, rgba(91,200,245,.4), transparent);
-            animation: scrollLine 2s ease-in-out infinite;
+            content: ''; display: block; width: 1px; height: 32px;
+            background: linear-gradient(to bottom, rgba(91,200,245,0.35), transparent);
+            animation: breathe 2s ease-in-out infinite;
         }
-        @keyframes scrollLine { 0%,100%{opacity:.3} 50%{opacity:1} }
+        @keyframes breathe { 0%,100%{opacity:.25} 50%{opacity:1} }
 
-        /* ── CONTENT SECTIONS ────────────────── */
-        .s { padding: 88px 48px; max-width: 1080px; margin: 0 auto; }
-
-        .tag {
-            font-size: 11px; font-weight: 600; letter-spacing: 3px;
-            color: var(--teal2); text-transform: uppercase; margin-bottom: 16px;
-            display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+        /* ── AUDIENCE SECTIONS ── */
+        .audience-s {
+            padding: 96px 48px;
         }
-        .tag::after { content: ''; display: block; width: 20px; height: 2px; background: var(--teal2); }
-
-        h2 {
-            font-size: clamp(28px, 4vw, 44px);
-            font-weight: 700; line-height: 1.2; color: var(--ink);
-            margin-bottom: 28px; text-align: right;
+        .audience-inner {
+            max-width: 760px; margin: 0 auto;
         }
-        .body-p {
+        .aud-sport { background: var(--navy); }
+        .aud-stuck { background: var(--off); }
+
+        .aud-tag {
+            font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+            font-weight: 700; margin-bottom: 32px; display: block;
+        }
+        .aud-sport .aud-tag { color: rgba(91,200,245,0.6); }
+        .aud-stuck .aud-tag { color: var(--teal2); }
+
+        .aud-body {
+            font-size: clamp(16px, 2vw, 19px); font-weight: 300;
+            line-height: 2; margin-bottom: 40px;
+        }
+        .aud-sport .aud-body { color: rgba(255,255,255,0.72); }
+        .aud-stuck .aud-body { color: var(--mid); }
+
+        .aud-body strong { font-weight: 600; }
+        .aud-sport .aud-body strong { color: var(--teal); }
+        .aud-stuck .aud-body strong { color: var(--ink); }
+
+        .aud-cta-row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .aud-btn-primary {
+            display: inline-block; background: var(--teal); color: var(--dark);
+            padding: 13px 32px; border-radius: 8px;
+            font-size: 15px; font-weight: 700; text-decoration: none;
+            transition: opacity .2s, transform .15s;
+        }
+        .aud-btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+        .aud-btn-ghost {
+            font-size: 14px; font-weight: 500; text-decoration: none;
+            transition: color .2s;
+        }
+        .aud-sport .aud-btn-ghost { color: rgba(255,255,255,0.35); border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 2px; }
+        .aud-sport .aud-btn-ghost:hover { color: var(--teal); border-color: var(--teal); }
+        .aud-stuck .aud-btn-ghost { color: var(--muted); border-bottom: 1px solid #ccc; padding-bottom: 2px; }
+        .aud-stuck .aud-btn-ghost:hover { color: var(--teal2); border-color: var(--teal2); }
+
+        /* Callout box inside audience section */
+        .aud-callout {
+            border-right: 3px solid var(--teal);
+            background: rgba(91,200,245,0.07);
+            border-radius: 0 8px 8px 0;
+            padding: 20px 24px;
+            margin: 32px 0;
+        }
+        .aud-callout-title {
+            font-size: 15px; font-weight: 700;
+            color: var(--teal); margin-bottom: 8px;
+        }
+        .aud-callout-text {
+            font-size: 14px; font-weight: 300;
+            color: rgba(255,255,255,0.6); line-height: 1.85; margin-bottom: 14px;
+        }
+        .aud-stuck .aud-callout { background: rgba(26,159,212,0.07); border-right-color: var(--teal2); }
+        .aud-stuck .aud-callout-title { color: var(--teal2); }
+        .aud-stuck .aud-callout-text { color: var(--mid); }
+        .aud-callout-link {
+            font-size: 13px; font-weight: 700;
+            color: var(--teal); text-decoration: none;
+            border-bottom: 1px solid rgba(91,200,245,0.3); padding-bottom: 2px;
+            transition: border-color .2s;
+        }
+        .aud-callout-link:hover { border-color: var(--teal); }
+        .aud-stuck .aud-callout-link { color: var(--teal2); border-bottom-color: rgba(26,159,212,0.3); }
+
+        /* ── 95% SECTION ── */
+        .section-95 {
+            background: var(--white);
+            padding: 104px 48px;
+        }
+        .s95-inner {
+            max-width: 920px; margin: 0 auto;
+            display: grid; grid-template-columns: auto 1fr; gap: 64px; align-items: center;
+        }
+        .big95 {
+            font-size: clamp(88px, 14vw, 148px);
+            font-weight: 900; line-height: 1; letter-spacing: -4px;
+            color: var(--teal2);
+        }
+        .big95 small {
+            font-size: 0.3em; font-weight: 300; letter-spacing: 0;
+            color: #ccc; display: block; margin-top: -6px;
+        }
+        .s95-text h2 {
+            font-size: clamp(20px, 2.6vw, 28px);
+            font-weight: 700; color: var(--ink); line-height: 1.35;
+            margin-bottom: 20px;
+        }
+        .s95-text p {
             font-size: 16px; font-weight: 300; color: var(--mid);
-            line-height: 1.9; margin-bottom: 16px;
-            max-width: 580px; margin-right: 0; text-align: right;
+            line-height: 2; margin-bottom: 14px;
         }
+        .s95-text p:last-child { margin-bottom: 0; }
 
-        /* ── ABOUT ───────────────────────────── */
-        .about-wrap {
-            background: var(--white);
-            border-top: 4px solid var(--teal2);
-        }
-
-        /* ── GUIDES ──────────────────────────── */
-        .guides-wrap { background: var(--off); }
-        .guides-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px; margin-top: 40px;
-        }
-        .gc {
-            background: var(--white);
-            border-radius: 10px;
-            padding: 26px 22px;
-            text-decoration: none;
-            display: block;
-            border: 1px solid var(--border);
-            transition: border-color .2s, box-shadow .2s;
-            text-align: right;
-        }
-        .gc:hover { border-color: var(--teal2); box-shadow: 0 4px 20px rgba(26,159,212,.1); }
-        .gc-num { font-size: 11px; font-weight: 700; color: #ccc; letter-spacing: 1px; margin-bottom: 12px; }
-        .gc-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 8px; line-height: 1.4; }
-        .gc-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
-        .gc-link { font-size: 12px; color: var(--teal2); font-weight: 600; margin-top: 14px; display: block; }
-
-        /* ── APP ─────────────────────────────── */
-        .app-wrap {
+        /* ── WHO I AM — manifesto list ── */
+        .who {
             background: var(--navy);
-            padding: 88px 48px;
+            padding: 104px 48px;
         }
-        .app-inner { max-width: 1080px; margin: 0 auto; }
-        .app-tag { color: var(--teal) !important; }
-        .app-tag::after { background: var(--teal) !important; }
-        .app-wrap h2 { color: var(--white); }
-        .app-wrap .body-p { color: rgba(255,255,255,.5); }
-        .btn-teal-outline {
+        .who-inner { max-width: 800px; margin: 0 auto; }
+        .section-tag {
+            font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+            font-weight: 600; margin-bottom: 48px;
+        }
+        .who .section-tag { color: rgba(91,200,245,0.6); }
+        .manifesto-row {
+            border-top: 1px solid rgba(255,255,255,0.09);
+            padding: 30px 0;
+            display: flex; gap: 28px; align-items: baseline;
+        }
+        .manifesto-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.09); }
+        .mrow-n {
+            font-size: 10px; font-weight: 700; letter-spacing: 2px;
+            color: rgba(91,200,245,0.35); min-width: 28px; flex-shrink: 0; padding-top: 3px;
+        }
+        .mrow-t {
+            font-size: clamp(16px, 2.2vw, 21px);
+            font-weight: 400; color: rgba(255,255,255,0.8); line-height: 1.55;
+        }
+        .mrow-t strong { color: var(--teal); font-weight: 600; }
+
+        /* ── METHOD — vertical path ── */
+        .method {
+            background: var(--off);
+            padding: 104px 48px;
+        }
+        .method-inner { max-width: 680px; margin: 0 auto; }
+        .method .section-tag { color: var(--teal2); }
+        .method h2 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 700; color: var(--ink); line-height: 1.25;
+            margin-bottom: 60px;
+        }
+        .path {
+            position: relative;
+            padding-right: 52px;
+        }
+        .path::before {
+            content: '';
+            position: absolute; right: 16px; top: 8px; bottom: 8px; width: 1px;
+            background: linear-gradient(to bottom, var(--teal2) 0%, rgba(26,159,212,0.1) 100%);
+        }
+        .step {
+            position: relative;
+            padding-bottom: 52px;
+        }
+        .step:last-child { padding-bottom: 0; }
+        .step::before {
+            content: '';
+            position: absolute; right: 9px; top: 7px;
+            width: 15px; height: 15px; border-radius: 50%;
+            background: var(--off); border: 2px solid var(--teal2);
+        }
+        .step:first-child::before { background: var(--teal2); box-shadow: 0 0 0 4px rgba(26,159,212,0.15); }
+        .step-label {
+            font-size: 10px; font-weight: 700; letter-spacing: 3px;
+            color: var(--teal2); margin-bottom: 12px;
+        }
+        .step-title {
+            font-size: clamp(18px, 2.4vw, 24px);
+            font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 10px;
+        }
+        .step-body {
+            font-size: 15px; font-weight: 300; color: var(--mid); line-height: 1.9;
+        }
+
+        /* ── GUIDES ── */
+        .guides { background: var(--white); padding: 104px 48px; }
+        .guides-inner { max-width: 960px; margin: 0 auto; }
+        .guides .section-tag { color: var(--teal2); margin-bottom: 12px; }
+        .guides h2 {
+            font-size: clamp(26px, 3.5vw, 38px);
+            font-weight: 700; color: var(--ink); margin-bottom: 40px;
+        }
+        /* Tabs */
+        .guide-tabs {
+            display: flex; gap: 0; margin-bottom: 40px;
+            border-bottom: 2px solid #e8e4dc;
+        }
+        .gtab {
+            padding: 12px 28px; font-size: 14px; font-weight: 600;
+            color: var(--muted); background: none; border: none; cursor: pointer;
+            position: relative; transition: color .2s; font-family: 'Rubik', sans-serif;
+            border-bottom: 2px solid transparent; margin-bottom: -2px;
+        }
+        .gtab.active { color: var(--teal2); border-bottom-color: var(--teal2); }
+        .gtab:hover:not(.active) { color: var(--ink); }
+        .guide-panel { display: none; }
+        .guide-panel.active { display: block; }
+        .guide-list { border-top: 1px solid #e8e4dc; }
+        .gi {
+            display: grid; grid-template-columns: 28px 1fr auto;
+            align-items: center; gap: 24px;
+            padding: 22px 0; border-bottom: 1px solid #e8e4dc;
+            text-decoration: none; transition: background .15s;
+        }
+        .gi:hover .gi-title { color: var(--teal2); }
+        .gi:hover .gi-arrow { opacity: 1; transform: translateX(-4px); }
+        .gi-num { font-size: 11px; font-weight: 700; color: #ccc; letter-spacing: 1px; }
+        .gi-body {}
+        .gi-title { font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.3; transition: color .2s; }
+        .gi-desc { font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.6; }
+        .gi-arrow {
+            font-size: 18px; color: var(--teal2); opacity: 0.3;
+            transition: opacity .2s, transform .2s; flex-shrink: 0;
+        }
+
+        /* Philosophy tab */
+        .philo-wrap { padding: 8px 0 32px; }
+        .philo-header {
+            padding: 24px 0 32px;
+            border-bottom: 2px solid var(--teal2);
+            margin-bottom: 40px;
+        }
+        .philo-title-main {
+            font-size: clamp(16px, 2vw, 20px); font-weight: 700;
+            color: var(--ink); line-height: 1.4;
+        }
+        .philo-chapter {
+            display: grid; grid-template-columns: 28px 1fr;
+            gap: 24px; padding: 32px 0;
+            border-bottom: 1px solid #e8e4dc;
+        }
+        .philo-highlight { background: #fafaf8; margin: 0 -24px; padding: 32px 24px; }
+        .philo-ch-num {
+            font-size: 11px; font-weight: 700; color: #ccc;
+            letter-spacing: 1px; padding-top: 4px; flex-shrink: 0;
+        }
+        .philo-ch-title {
+            font-size: clamp(16px, 2vw, 19px); font-weight: 700;
+            color: var(--ink); margin-bottom: 16px; line-height: 1.35;
+        }
+        .philo-ch-body p {
+            font-size: 15px; font-weight: 300; color: var(--mid);
+            line-height: 1.95; margin-bottom: 12px;
+        }
+        .philo-ch-body p:last-child { margin-bottom: 0; }
+        .philo-ch-body strong { color: var(--ink); font-weight: 600; }
+        .philo-list {
+            list-style: none; margin: 12px 0;
+            border-right: 2px solid rgba(26,159,212,0.25); padding-right: 16px;
+        }
+        .philo-list li {
+            font-size: 15px; font-weight: 300; color: var(--mid);
+            line-height: 1.8; padding: 4px 0;
+        }
+        .philo-list li::before { content: '— '; color: var(--teal2); }
+        .philo-95-inline {
+            display: flex; align-items: center; gap: 16px;
+            margin: 20px 0; padding: 16px 20px;
+            background: rgba(26,159,212,0.06); border-radius: 8px;
+            border-right: 3px solid var(--teal2);
+        }
+        .p95-big {
+            font-size: clamp(36px, 5vw, 56px); font-weight: 900;
+            color: var(--teal2); letter-spacing: -2px; line-height: 1; flex-shrink: 0;
+        }
+        .p95-caption {
+            font-size: 16px; font-weight: 500; color: var(--ink); line-height: 1.4;
+        }
+        .philo-quote {
+            margin: 20px 0 0;
+            padding: 18px 20px;
+            border-right: 3px solid var(--teal2);
+            font-size: clamp(16px, 2vw, 19px); font-weight: 500;
+            color: var(--ink); line-height: 1.6;
+            background: rgba(91,200,245,0.04); border-radius: 0 8px 8px 0;
+        }
+        .philo-steps-section {
+            margin-top: 40px; padding-top: 32px;
+            border-top: 2px solid var(--ink);
+        }
+        .philo-steps-title {
+            font-size: clamp(16px, 2vw, 19px); font-weight: 700;
+            color: var(--ink); margin-bottom: 24px;
+        }
+        .philo-steps { display: flex; flex-direction: column; }
+        .pstep {
+            display: grid; grid-template-columns: 28px 1fr;
+            gap: 20px; padding: 20px 0; border-bottom: 1px solid #e8e4dc;
+        }
+        .pstep:first-child { border-top: 1px solid #e8e4dc; }
+        .pstep-n { font-size: 11px; font-weight: 700; color: #ccc; letter-spacing: 1px; padding-top: 3px; }
+        .pstep-title { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+        .pstep-text { font-size: 14px; font-weight: 300; color: var(--mid); line-height: 1.85; }
+        .philo-bottom-line {
+            margin-top: 28px; padding: 20px 24px;
+            background: var(--navy); border-radius: 8px;
+            font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.75); line-height: 1.8;
+        }
+        .philo-bottom-line strong { color: var(--teal); }
+
+        /* ── APP ── */
+        .app-s { background: var(--dark); padding: 104px 48px; text-align: center; }
+        .app-s-inner { max-width: 580px; margin: 0 auto; }
+        .app-s .section-tag { color: rgba(91,200,245,0.6); margin-bottom: 28px; }
+        .app-s h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: #fff; margin-bottom: 20px; }
+        .app-s p { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 2; margin-bottom: 44px; }
+        .btn-outline {
             display: inline-block; border: 1.5px solid var(--teal);
-            color: var(--teal); padding: 12px 28px; border-radius: 8px;
+            color: var(--teal); padding: 13px 32px; border-radius: 8px;
             font-size: 15px; font-weight: 600; text-decoration: none;
-            transition: background .2s, color .2s; margin-top: 8px;
+            transition: background .2s, color .2s;
         }
-        .btn-teal-outline:hover { background: var(--teal); color: var(--dark); }
+        .btn-outline:hover { background: var(--teal); color: var(--dark); }
 
-        /* ── TESTIMONIALS ────────────────────── */
-        .test-wrap { background: var(--white); }
-        .test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 40px; }
-        .tc {
-            border-top: 3px solid var(--border); padding-top: 24px;
+        /* ── CONTACT ── */
+        .contact-s { background: var(--navy); padding: 104px 48px; text-align: center; }
+        .contact-s-inner { max-width: 520px; margin: 0 auto; }
+        .contact-s .section-tag { color: rgba(91,200,245,0.6); margin-bottom: 28px; }
+        .contact-s h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: #fff; margin-bottom: 20px; }
+        .contact-s p { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 2; margin-bottom: 48px; }
+        .btn-solid {
+            display: inline-block; background: var(--teal); color: var(--dark);
+            padding: 14px 36px; border-radius: 8px;
+            font-size: 15px; font-weight: 700; text-decoration: none;
+            transition: opacity .2s, transform .15s;
         }
-        .tc:first-child { border-top-color: var(--teal2); }
-        .tc-text { font-size: 15px; color: #333; line-height: 1.75; font-style: italic; margin-bottom: 16px; text-align: right; }
-        .tc-name { font-size: 12px; font-weight: 600; color: var(--teal2); letter-spacing: .5px; text-align: right; display: block; }
+        .btn-solid:hover { opacity: 0.85; transform: translateY(-2px); }
 
-        /* ── CONTACT ─────────────────────────── */
-        .contact-wrap { background: var(--dark); }
-        .contact-inner {
-            max-width: 1080px; margin: 0 auto;
-            padding: 100px 48px; text-align: center;
+        /* ── FOOTER ── */
+        footer {
+            background: var(--dark);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center; padding: 24px;
+            font-size: 12px; color: rgba(255,255,255,0.18);
         }
-        .contact-inner .tag { justify-content: center; color: var(--teal); }
-        .contact-inner .tag::after { background: var(--teal); }
-        .contact-inner::before { content: none; }
-        .contact-inner h2 { color: var(--white); }
-        .contact-inner p { font-size: 17px; font-weight: 300; color: rgba(255,255,255,.5); line-height: 1.8; margin-bottom: 44px; text-align: center; }
 
-        /* ── FOOTER ──────────────────────────── */
-        footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,.08); text-align: center; padding: 24px; font-size: 12px; color: rgba(255,255,255,.25); }
-
-        /* ── RESPONSIVE ──────────────────────── */
+        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
             nav { padding: 0 20px; }
             nav ul li:not(:last-child) { display: none; }
-            .hero { padding: 80px 20px 60px; align-items: flex-start; }
-            .hero-content { text-align: right; }
-            .hero-btns { justify-content: flex-start; }
-            .s { padding: 60px 20px; }
-            .guides-grid, .test-grid { grid-template-columns: 1fr; }
-            .app-wrap { padding: 60px 20px; }
-            .contact-inner { padding: 70px 20px; }
+            .hero { padding: 56px 24px 96px; }
+            .section-95 { padding: 72px 24px; }
+            .s95-inner { grid-template-columns: 1fr; gap: 24px; }
+            .who { padding: 72px 24px; }
+            .method { padding: 72px 24px; }
+            .guides { padding: 72px 24px; }
+            .gi { grid-template-columns: 24px 1fr 20px; gap: 14px; }
+            .app-s, .contact-s { padding: 72px 24px; }
         }
     </style>
 </head>
 <body>
 
 <nav>
-    <div class="nav-logo"><img src="dov-06.jpg" alt="דוב פינגר"></div>
+    <a href="#top" class="nav-logo"><img src="dots.png" alt="בדרך"></a>
     <ul>
-        <li><a href="#about">אודות</a></li>
+        <li><a href="#why">הפילוסופיה</a></li>
         <li><a href="#guides">מדריכים</a></li>
-        <li><a href="#app">האפליקציה</a></li>
         <li><a href="#contact" class="nav-cta">בוא נדבר</a></li>
     </ul>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-    <div class="hero-bg-text">בדרך</div>
-    <div class="hero-content">
-        <div class="hero-eyebrow">מאמן מנטלי</div>
-        <h1>תמיד<br><span class="hl">בדרך</span></h1>
-        <p class="hero-sub">לא מחכים ליעד — ממשיכים לזוז.<br>אימון פרקטי שמתמקד בתנועה, בהתקדמות, בדרך.</p>
-        <div class="hero-btns">
-            <a href="#contact" class="btn-teal">בוא נדבר →</a>
-            <a href="#guides" class="btn-ghost">מדריכים חינמיים ↓</a>
+<section class="hero" id="top">
+    <div class="hero-logo">
+        <div class="hero-logo-text">
+            <span class="hero-logo-name">ד<span class="logo-vav">ו<span class="hero-logo-dots"><img src="dots.png" alt=""></span></span>ב פינגר</span>
+            <div class="hero-logo-sep"></div>
+            <span class="hero-logo-title">מאמן מנטלי</span>
         </div>
+    </div>
+    <h1>תמיד <span class="hl">בדרך</span></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">לא מחכים ליעד.<br>לא מודדים רק בסוף.<br>זזים — וזו ההצלחה.</p>
+    <div class="hero-btns">
+        <button class="btn-audience btn-aud-primary" onclick="document.getElementById('aud-sport').scrollIntoView({behavior:'smooth'})">ספורטאים ←</button>
+        <button class="btn-audience btn-aud-secondary" onclick="document.getElementById('aud-stuck').scrollIntoView({behavior:'smooth'})">תרגיש תקוע? ←</button>
     </div>
     <div class="scroll-hint">גלול</div>
 </section>
 
-<!-- ABOUT -->
-<div class="about-wrap" id="about">
-    <div class="s">
-        <div class="tag">אודות</div>
-        <h2>תכל'ס — מי אני?</h2>
-        <p class="body-p">שמי דוב פינגר. מאמן מנטלי מוסמך עם גישה פשוטה אחת: לא מחכים ליעד — ממשיכים לזוז.</p>
-        <p class="body-p">הפילוסופיה שלי היא שהדרך עצמה היא ההצלחה. אנחנו עובדים על תנועה מתמדת — צעד אחר צעד, יום אחר יום. עם כלים פרקטיים שנותנים תוצאות בפועל.</p>
-        <p class="body-p">מה שאני מלמד עברתי בעצמי. לכן זה עובד.</p>
+<!-- SPORT SECTION -->
+<section class="audience-s aud-sport" id="aud-sport">
+    <div class="audience-inner">
+        <span class="aud-tag">לספורטאים</span>
+        <div class="aud-body">
+            אני מבין כמה קשה להיות ספורטאי — עבדתי עם הרבה ספורטאים לאורך השנים. ברור שצריך <strong>שבט כדי לגדל ספורטאי</strong> — ובכל זאת, <strong>רוב העבודה היא שלך.</strong> אתה בדרך. אתה בנקודה מסוימת — לא בסוף שלה. החיים זה לא הכל או כלום. 95% זו עבודה קשה, עם הרבה צמתים. אני כאן כדי לנסות לעזור עם <strong>החלק המנטלי</strong> — לקבל החלטות ברגעי לחץ, לסמוך על האינסטינקט ועל הגוף ולא להילחם בו. ללמוד לקבל. להבין שמחשבות הן לא המציאות.
+        </div>
+        <div class="aud-callout">
+            <div class="aud-callout-title">"אקמול מנטלי" — במיוחד בשבילך</div>
+            <div class="aud-callout-text">כמה מדריכים ממוקדים לבעיות שכל ספורטאי חווה. בטוח יש משהו שמתאים לך. זה לא ארוך — תקרא, אולי זה לא יפתור הכל, אבל אולי יעזור.</div>
+            <a href="#guides" class="aud-callout-link" onclick="setTimeout(()=>goToTab('sport'),400)">לכל המדריכים ←</a>
+        </div>
+        <div class="aud-body" style="margin-top:28px;">
+            <strong>אני כאן. תשלח הודעה, מבטיח לחזור.</strong>
+        </div>
+        <div class="aud-cta-row">
+            <a href="#contact" class="aud-btn-primary">בוא נדבר →</a>
+            <a href="#guides" class="aud-btn-ghost" onclick="setTimeout(()=>goToTab('sport'),400)">מדריכים לספורטאים ↓</a>
+        </div>
     </div>
-</div>
+</section>
 
-<!-- METHOD -->
-<div style="background:var(--navy);">
-    <div class="s">
-        <div class="tag" style="color:var(--teal); justify-content:flex-end;">
-            <span>המתודה</span><span style="display:block;width:20px;height:2px;background:var(--teal);"></span>
+<!-- STUCK SECTION -->
+<section class="audience-s aud-stuck" id="aud-stuck">
+    <div class="audience-inner">
+        <span class="aud-tag">תרגיש תקוע?</span>
+        <div class="aud-body">
+            הגעת לחלק בחיים שאתה מרגיש תקוע. שהכל איבד עניין וקסם. שאין תשוקה. אתה שואל: <strong>האם באמת זה כל מה שיש?</strong> הייתי שם. מכיר את זה טוב מאוד. שתדע — <strong>אתה לא לבד.</strong> אני לא הבנתי את זה אבל אחר כך גיליתי שאני לא לבד. כמעט כולם עוברים את זה בשלב כלשהו. ברור שזה לא קל, ולא מנחם. מתוך לימוד והמון ניסיון אישי, פיתחתי את <strong>בדרך</strong> — סוג של אימון שנותן הסתכלות קצת אחרת, פותח תודעה ונותן כלים להתמודדות יומיומית.
         </div>
-        <h2 style="color:#fff; margin-bottom:12px;">ארבעה שלבים. <span style="color:var(--teal);">תנועה אחת.</span></h2>
-        <p style="color:rgba(255,255,255,.45); font-size:15px; font-weight:300; margin-bottom:48px; text-align:right;">95% מהחיים זו הדרך — לא היעד. הסיפור הוא לא איפה הגעת, אלא שלא הפסקת ללכת.</p>
-        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px;">
-            <div style="background:rgba(255,255,255,.05); border:1px solid rgba(91,200,245,.15); border-radius:12px; padding:28px 24px;">
-                <div style="font-size:11px; font-weight:700; color:var(--teal); letter-spacing:2px; margin-bottom:14px;">שלב 01</div>
-                <div style="font-size:17px; font-weight:600; color:#fff; margin-bottom:10px;">להוריד מהתיק</div>
-                <div style="font-size:14px; color:rgba(255,255,255,.45); line-height:1.7;">להניח את הציפיות, הביקורת העצמית והמשקל שנצבר בדרך — כדי שנוכל לזוז קדימה.</div>
-            </div>
-            <div style="background:rgba(255,255,255,.05); border:1px solid rgba(91,200,245,.15); border-radius:12px; padding:28px 24px;">
-                <div style="font-size:11px; font-weight:700; color:var(--teal); letter-spacing:2px; margin-bottom:14px;">שלב 02</div>
-                <div style="font-size:17px; font-weight:600; color:#fff; margin-bottom:10px;">לא להוסיף חצים</div>
-                <div style="font-size:14px; color:rgba(255,255,255,.45); line-height:1.7;">הכאב הוא חץ ראשון — חלק מהחיים. השיפוטיות העצמית היא החץ השני שאנחנו יורים בעצמנו. אפשר לבחור לא.</div>
-            </div>
-            <div style="background:rgba(255,255,255,.05); border:1px solid rgba(91,200,245,.15); border-radius:12px; padding:28px 24px;">
-                <div style="font-size:11px; font-weight:700; color:var(--teal); letter-spacing:2px; margin-bottom:14px;">שלב 03</div>
-                <div style="font-size:17px; font-weight:600; color:#fff; margin-bottom:10px;">הליכה נקייה</div>
-                <div style="font-size:14px; color:rgba(255,255,255,.45); line-height:1.7;">אחרי שהורדנו משקל — עושים את התנועה הבאה. פשוטה, פיזית, בלי דרמה.</div>
-            </div>
-            <div style="background:rgba(255,255,255,.05); border:1px solid rgba(91,200,245,.15); border-radius:12px; padding:28px 24px;">
-                <div style="font-size:11px; font-weight:700; color:var(--teal); letter-spacing:2px; margin-bottom:14px;">שלב 04</div>
-                <div style="font-size:17px; font-weight:600; color:#fff; margin-bottom:10px;">חזרה למרכז</div>
-                <div style="font-size:14px; color:rgba(255,255,255,.45); line-height:1.7;">לקצר את זמן הנפילה. לחזור לתנועה מהר ובלי אשמה. אין "נכשלתי" — יש רק "יצאתי וחזרתי".</div>
-            </div>
+        <a href="#guides" onclick="setTimeout(()=>goToTab('philo'),400)" style="display:inline-block;margin:20px 0 0;color:var(--teal2);font-weight:600;font-size:15px;text-decoration:none;border-bottom:1px solid rgba(26,159,212,0.4);padding-bottom:2px;transition:border-color .2s;">אם תלחץ כאן תוכל לקרוא ממש בקצרה את הרעיון מאחורי בדרך ←</a>
+        <div class="aud-body" style="margin-top:24px;">
+            בכל מקרה — <strong>תמיד תוכל לשלוח לי הודעה.</strong> מבטיח לחזור. מקסימום שיחה קצרה — אולי תועיל.
+        </div>
+        <div class="aud-cta-row">
+            <a href="#contact" class="aud-btn-primary">שלח הודעה →</a>
+            <a href="#guides" class="aud-btn-ghost" onclick="setTimeout(()=>goToTab('philo'),400)">קרא על המתודה ↓</a>
         </div>
     </div>
-</div>
+</section>
 
-<!-- DIFFERENCE -->
-<div style="background:#fff; border-top: 1px solid #e8e6e0;">
-    <div class="s" style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;">
+<!-- THE 95% -->
+<section class="section-95" id="why">
+    <div class="s95-inner">
         <div>
-            <div class="tag">אחרים</div>
-            <ul style="list-style:none; margin-top:16px;">
-                <li style="padding:12px 0; border-bottom:1px solid #f0f0f0; font-size:15px; color:#aaa; font-weight:300;">❌ &nbsp;מחכים ליעד כדי "להצליח"</li>
-                <li style="padding:12px 0; border-bottom:1px solid #f0f0f0; font-size:15px; color:#aaa; font-weight:300;">❌ &nbsp;תהליכים ארוכים וכבדים</li>
-                <li style="padding:12px 0; border-bottom:1px solid #f0f0f0; font-size:15px; color:#aaa; font-weight:300;">❌ &nbsp;תיאוריה בלי פעולה</li>
-                <li style="padding:12px 0; font-size:15px; color:#aaa; font-weight:300;">❌ &nbsp;תקועים, לא זזים קדימה</li>
-            </ul>
+            <div class="big95">95<small>%</small></div>
         </div>
-        <div>
-            <div class="tag">דוב פינגר</div>
-            <ul style="list-style:none; margin-top:16px;">
-                <li style="padding:12px 0; border-bottom:1px solid #f0f0f0; font-size:15px; color:#111; font-weight:400;">✓ &nbsp;הדרך עצמה היא ההצלחה</li>
-                <li style="padding:12px 0; border-bottom:1px solid #f0f0f0; font-size:15px; color:#111; font-weight:400;">✓ &nbsp;תנועה יומיומית, צעד אחר צעד</li>
-                <li style="padding:12px 0; border-bottom:1px solid #f0f0f0; font-size:15px; color:#111; font-weight:400;">✓ &nbsp;כלים פרקטיים שעובדים</li>
-                <li style="padding:12px 0; font-size:15px; color:#111; font-weight:400;">✓ &nbsp;מרגישים התקדמות מהר</li>
-            </ul>
+        <div class="s95-text">
+            <h2>מהחיים זה הדרך —<br>לא היעד.</h2>
+            <p>אנחנו שמים את כל הכבוד ביעד — ומתעלמים מ-95% מהזמן שאנחנו חיים בו.</p>
         </div>
     </div>
-</div>
+</section>
+
+<!-- WHO AM I -->
+<section class="who" id="about">
+    <div class="who-inner">
+        <div class="section-tag">כמה מילים עליי</div>
+        <!-- תוכן חדש — ממתין לטקסט מדוב -->
+    </div>
+</section>
 
 <!-- GUIDES -->
-<div class="guides-wrap" id="guides">
-    <div class="s">
-        <div class="tag">מדריכים חינמיים</div>
+<section class="guides" id="guides">
+    <div class="guides-inner">
+        <div class="section-tag">מדריכים חינמיים</div>
         <h2>כלים שאפשר ליישם עכשיו</h2>
-        <div class="guides-grid">
-            <a class="gc" href="#"><div class="gc-num">01</div><div class="gc-title">ביטחון עצמי</div><div class="gc-desc">איך לבנות אמונה עצמית יציבה שלא תלויה באף אחד</div><span class="gc-link">קרא עכשיו ←</span></a>
-            <a class="gc" href="#"><div class="gc-num">02</div><div class="gc-title">מוטיבציה והתמדה</div><div class="gc-desc">שמירה על אנרגיה ומיקוד לאורך עונה שלמה</div><span class="gc-link">קרא עכשיו ←</span></a>
-            <a class="gc" href="#"><div class="gc-num">03</div><div class="gc-title">מיקוד תחת לחץ</div><div class="gc-desc">התמודדות עם הסחות, טעויות ופחד מהחמצה</div><span class="gc-link">קרא עכשיו ←</span></a>
-            <a class="gc" href="#"><div class="gc-num">04</div><div class="gc-title">טעויות וכישלונות</div><div class="gc-desc">שיטת דג הזהב — איך מתמודדים ומתקדמים הלאה</div><span class="gc-link">קרא עכשיו ←</span></a>
-            <a class="gc" href="#"><div class="gc-num">05</div><div class="gc-title">להתמודד עם לחץ</div><div class="gc-desc">להפוך את הלחץ לבמה שלך</div><span class="gc-link">קרא עכשיו ←</span></a>
-            <a class="gc" href="#"><div class="gc-num">06</div><div class="gc-title">בסיס יומי להצלחה</div><div class="gc-desc">שגרה מנטלית ופיזית שעובדת</div><span class="gc-link">קרא עכשיו ←</span></a>
+
+        <div class="guide-tabs">
+            <button class="gtab active" data-tab="sport">ספורטאים</button>
+            <button class="gtab" data-tab="lost">תרגיש תקוע?</button>
+            <button class="gtab" data-tab="philo">הפילוסופיה</button>
+        </div>
+
+        <!-- ספורטאים -->
+        <div class="guide-panel active" id="panel-sport">
+            <div class="guide-list">
+                <a class="gi" href="pdfs/bitachon-atzmi.pdf" target="_blank">
+                    <div class="gi-num">01</div>
+                    <div class="gi-body"><div class="gi-title">ביטחון עצמי</div><div class="gi-desc">איך לבנות אמונה פנימית שלא מתפרקת תחת לחץ</div></div>
+                    <div class="gi-arrow">←</div>
+                </a>
+                <a class="gi" href="pdfs/mikud-vitztua.pdf" target="_blank">
+                    <div class="gi-num">02</div>
+                    <div class="gi-body"><div class="gi-title">מיקוד וביצוע</div><div class="gi-desc">להישאר בראש גם כשהכל סביבך רועש</div></div>
+                    <div class="gi-arrow">←</div>
+                </a>
+                <a class="gi" href="pdfs/tauyot.pdf" target="_blank">
+                    <div class="gi-num">03</div>
+                    <div class="gi-body"><div class="gi-title">התמודדות עם טעויות וכישלונות</div><div class="gi-desc">לעבד ולהמשיך בלי לשאת את זה</div></div>
+                    <div class="gi-arrow">←</div>
+                </a>
+                <a class="gi" href="pdfs/lahatz.pdf" target="_blank">
+                    <div class="gi-num">04</div>
+                    <div class="gi-body"><div class="gi-title">להתמודד עם לחץ</div><div class="gi-desc">שמירה על אנרגיה ומיקוד גם כשהכל לוחץ</div></div>
+                    <div class="gi-arrow">←</div>
+                </a>
+                <a class="gi" href="pdfs/ptziiot.pdf" target="_blank">
+                    <div class="gi-num">05</div>
+                    <div class="gi-body"><div class="gi-title">התמודדות עם פציעות</div><div class="gi-desc">איך חוזרים לתנועה אחרי עצירה כפויה</div></div>
+                    <div class="gi-arrow">←</div>
+                </a>
+                <a class="gi" href="pdfs/sfasel.pdf" target="_blank">
+                    <div class="gi-num">06</div>
+                    <div class="gi-body"><div class="gi-title">שחקן ספסל</div><div class="gi-desc">איך להישאר מנטלית חזק כשלא משחקים</div></div>
+                    <div class="gi-arrow">←</div>
+                </a>
+                <a class="gi" href="pdfs/motivatziya.pdf" target="_blank">
+                    <div class="gi-num">07</div>
+                    <div class="gi-body"><div class="gi-title">מוטיבציה והתמדה</div><div class="gi-desc">מוטיבציה היא רק התחלה — התמדה זו הדרך</div></div>
+                    <div class="gi-arrow">←</div>
+                </a>
+                <a class="gi" href="pdfs/matarot.pdf" target="_blank">
+                    <div class="gi-num">08</div>
+                    <div class="gi-body"><div class="gi-title">להציב מטרות חכמות</div><div class="gi-desc">כשאין כיוון ברור — איך מוצאים את התנועה הבאה</div></div>
+                    <div class="gi-arrow">←</div>
+                </a>
+                <a class="gi" href="pdfs/basis-yomi.pdf" target="_blank">
+                    <div class="gi-num">09</div>
+                    <div class="gi-body"><div class="gi-title">בסיס יומי להצלחה מנטלית ופיזית</div><div class="gi-desc">תנועה קטנה ויומיומית שמחזירה את תחושת ההתקדמות</div></div>
+                    <div class="gi-arrow">←</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- הלכתי לאיבוד בדרך -->
+        <div class="guide-panel" id="panel-lost">
+            <div class="guide-list">
+            </div>
+        </div>
+
+        <!-- הפילוסופיה -->
+        <div class="guide-panel" id="panel-philo">
+            <div class="philo-wrap">
+
+                <div class="philo-header">
+                    <div class="philo-title-main">בדרך: האומנות של להיות אנושי בתנועה</div>
+                </div>
+
+                <div class="philo-chapter">
+                    <div class="philo-ch-num">01</div>
+                    <div class="philo-ch-body">
+                        <div class="philo-ch-title">הכל מתחיל ונגמר בתנועה</div>
+                        <p>הבסיס להכל – זה תנועה. העולם היום מנסה להפוך אותנו למכונות. אומרים לנו: "תציבו יעד, תהיו יעילים, תכבשו". אבל אנחנו לא מכונות, אנחנו בני אדם. והבעיה הכי גדולה שלנו היא שאנחנו קופאים. אנחנו עוצרים. אנחנו נתקעים במחשבות, בתכנונים, ובפחדים.</p>
+                        <p>המתודה הזאת באה להגיד דבר אחד פשוט: העיקר זה להמשיך לזוז. לא משנה כמה הצעד קטן, לא משנה אם זה צעד הצידה או אפילו קצת אחורה — כל עוד אתה בתנועה, אתה חי.</p>
+                    </div>
+                </div>
+
+                <div class="philo-chapter">
+                    <div class="philo-ch-num">02</div>
+                    <div class="philo-ch-body">
+                        <div class="philo-ch-title">התיק שסוחב אותנו (במקום שאנחנו נסחב אותו)</div>
+                        <p>הגענו לעולם מזל טוב. נולדנו קלילים, התחלנו ללכת לאט לאט, הכל היה פשוט. אבל עם הזמן, הדרך התחילה "להעמיס" עלינו. פתחנו תיק גב והתחלנו לדחוף פנימה הכל:</p>
+                        <ul class="philo-list">
+                            <li>ביקורת שמישהו זרק לנו פעם.</li>
+                            <li>שיפוטיות עצמית רעילה.</li>
+                            <li>מכות שחטפנו בדרך, אכזבות, כישלונות.</li>
+                            <li>אפילו הצלחות מהעבר שהפכו לתיק של "מה יגידו אם הפעם לא אצליח".</li>
+                        </ul>
+                        <p>התיק הזה נהיה מפוצץ. הוא כל כך כבד שהוא פשוט מפריע לנו ללכת. אנחנו עומדים במקום ומרגישים משותקים. לכן, הדבר הראשון שאנחנו עושים ב"בדרך" זה <strong>להוריד את התיק</strong>. לזרוק ממנו את כל מה שלא עוזר לנו לנוע עכשיו. להקל על הגב כדי שנוכל לעשות את הצעד הבא.</p>
+                    </div>
+                </div>
+
+                <div class="philo-chapter">
+                    <div class="philo-ch-num">03</div>
+                    <div class="philo-ch-body">
+                        <div class="philo-ch-title">לא להוסיף חצים</div>
+                        <p>יש משל בודהיסטי ישן שמסביר בדיוק למה אנחנו תקועים. הוא מדבר על "שני החצים".</p>
+                        <p>תחשבו שאתם הולכים בדרך ופתאום פוגע בכם חץ. כואב, נכון? זה <strong>החץ הראשון</strong>. זה הכאב של המציאות — פיטרו אותך, נכשלת במשהו, מישהו פגע בך. זה כואב ואין מה לעשות עם זה, זה חלק מהחיים.</p>
+                        <p>אבל מה אנחנו עושים בדרך כלל? אנחנו לוקחים עוד חץ ויורים אותו בעצמנו בכוח. זה <strong>החץ השני</strong>.</p>
+                        <p>החץ השני זה כל הדיבור העצמי המיותר: "למה זה קרה לי?", "אני אפס", "אני בחיים לא אצא מזה. אני זקן מידיי, לא טוב בעסקים, לא טוב בניהול..."</p>
+                        <p>החץ הראשון הוא כאב, אבל <strong>החץ השני הוא סבל</strong>. ב"בדרך", אנחנו לומדים לא להוסיף חצים. כואב? לא נעים בכלל, אבל אל תירה בעצמך עוד חץ של שיפוטיות. תשמור את האנרגיה הזאת כדי שפשוט אפשר יהיה ללכת.</p>
+                    </div>
+                </div>
+
+                <div class="philo-chapter philo-highlight">
+                    <div class="philo-ch-num">04</div>
+                    <div class="philo-ch-body">
+                        <div class="philo-ch-title">רציאונל ה-95/5: הדרך היא ההצלחה</div>
+                        <div class="philo-95-inline">
+                            <span class="p95-big">95%</span>
+                            <span class="p95-caption">מהחיים זו הדרך — לא היעד</span>
+                        </div>
+                        <p>כאן אנשים בדרך כלל מתבלבלים. כולם מחפשים את ה-5% של ה"אורות", של הרגע הגדול שבו הכל מסתדר. הניצחון, פסגת ההר. הם בטוחים שזה מה שחשוב. אבל האמת היא ש-95% מהחיים זו הדרך. זה השגרה, זה המאמץ האפור, זה הצעדים הקטנים.</p>
+                        <p>תקשיבו טוב: הדרך להצלחה היא לא "אמצעי" להגיע למטרה. <strong>הדרך להצלחה היא... הדרך.</strong></p>
+                        <p>ברגע שאתה מבין שה-95% האלו הם המהות, אתה מפסיק לחכות לנס ומתחיל ליהנות מהתנועה עצמה. ה-5% של ה"וואו" יבואו לבד — הם הבונוס על זה שלא הפסקת ללכת.</p>
+                    </div>
+                </div>
+
+                <div class="philo-chapter">
+                    <div class="philo-ch-num">05</div>
+                    <div class="philo-ch-body">
+                        <div class="philo-ch-title">תמיד בדרך (גם כשלא יודעים לאן)</div>
+                        <p>אנחנו תמיד נמצאים בנקודה כלשהי. לפעמים הדרך ברורה, לפעמים הכל ערפל ואנחנו לא רואים מטר קדימה. לפעמים אנחנו מנסים כיוון חדש, לפעמים עוצרים לנוח, ולפעמים אפילו חוזרים אחורה. וזה בסדר גמור.</p>
+                        <div class="philo-quote">אתה תמיד בדרך... אין "נכשלתי", יש רק "יצאתי מהמרכז וחזרתי אליו".</div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
+</section>
 
 <!-- APP -->
-<div class="app-wrap" id="app">
-    <div class="app-inner">
-        <div class="tag app-tag">אפליקציה חינמית</div>
+<section class="app-s" id="app">
+    <div class="app-s-inner">
+        <div class="section-tag">אפליקציה חינמית</div>
         <h2>שיטת בדרך</h2>
-        <p class="body-p">7 דקות ביום. יעד אחד. מאמן AI שמלווה אותך.<br>האפליקציה שבנויה על השיטה שלי.</p>
-        <a href="https://mrdfdd-source.github.io/bderech-/" target="_blank" class="btn-teal-outline">נסה עכשיו — חינם →</a>
+        <p>7 דקות ביום. יעד אחד. מאמן AI שמלווה אותך.<br>האפליקציה שבנויה על השיטה שלי.</p>
+        <a href="https://mrdfdd-source.github.io/bderech-/" target="_blank" class="btn-outline">נסה עכשיו — חינם →</a>
     </div>
-</div>
-
-<!-- TESTIMONIALS -->
-<div class="test-wrap" id="testimonials">
-    <div class="s">
-        <div class="tag">מה אומרים</div>
-        <h2>עדויות</h2>
-        <div class="test-grid">
-            <div class="tc"><p class="tc-text">"תוסיף כאן עדות אמיתית מלקוח"</p><span class="tc-name">— שם, תפקיד</span></div>
-            <div class="tc"><p class="tc-text">"תוסיף כאן עדות אמיתית מלקוח"</p><span class="tc-name">— שם, תפקיד</span></div>
-            <div class="tc"><p class="tc-text">"תוסיף כאן עדות אמיתית מלקוח"</p><span class="tc-name">— שם, תפקיד</span></div>
-        </div>
-    </div>
-</div>
+</section>
 
 <!-- CONTACT -->
-<div class="contact-wrap" id="contact">
-    <div class="contact-inner">
-        <div class="tag">צור קשר</div>
+<section class="contact-s" id="contact">
+    <div class="contact-s-inner">
+        <div class="section-tag">צור קשר</div>
         <h2>מוכן להתחיל?</h2>
         <p>שיחת היכרות קצרה — בלי התחייבות.<br>תכל'ס, מה יש להפסיד?</p>
-        <a href="https://wa.me/972XXXXXXXXX" class="btn-teal" target="_blank">שלח הודעה בוואטסאפ →</a>
+        <a href="https://wa.me/972584305272" class="btn-solid" target="_blank">שלח הודעה בוואטסאפ →</a>
     </div>
-</div>
+</section>
 
 <footer>© דוב פינגר — מאמן מנטלי · כל הזכויות שמורות</footer>
+
+<script>
+    document.querySelectorAll('.gtab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.dataset.tab;
+            document.querySelectorAll('.gtab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.guide-panel').forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('panel-' + target).classList.add('active');
+        });
+    });
+
+    function goToTab(tabId) {
+        document.querySelectorAll('.gtab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.guide-panel').forEach(p => p.classList.remove('active'));
+        document.querySelector('[data-tab="' + tabId + '"]').classList.add('active');
+        document.getElementById('panel-' + tabId).classList.add('active');
+        document.getElementById('guides').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
 
 </body>
 </html>
