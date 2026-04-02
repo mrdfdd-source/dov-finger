@@ -32,22 +32,30 @@
             align-items: center;
             gap: 10px;
         }
+        .nav-logo-name-wrap {
+            position: relative;
+            display: inline-block;
+        }
         .nav-logo-dots {
+            position: absolute;
+            top: -10px;
+            right: -2px;
             display: flex;
-            gap: 4px;
+            gap: 3px;
             align-items: center;
         }
         .nav-logo-dots span {
             border-radius: 50%;
             display: block;
         }
-        .dot1 { width: 8px; height: 8px; background: #5bc8f5; }
-        .dot2 { width: 10px; height: 10px; background: #3ab5e8; }
-        .dot3 { width: 12px; height: 12px; background: #1a9fd4; }
+        .dot1 { width: 6px; height: 6px; background: #5bc8f5; }
+        .dot2 { width: 8px; height: 8px; background: #3ab5e8; }
+        .dot3 { width: 10px; height: 10px; background: #1a9fd4; }
         .nav-logo-text {
             font-size: 17px;
             font-weight: 700;
             color: #1a1a1a;
+            padding-top: 6px;
         }
         .nav-logo-sub {
             font-size: 12px;
@@ -318,12 +326,12 @@
 <!-- ניווט -->
 <nav>
     <div class="nav-logo">
-        <div class="nav-logo-dots">
-            <span class="dot3"></span>
-            <span class="dot2"></span>
-            <span class="dot1"></span>
-        </div>
-        <div>
+        <div class="nav-logo-name-wrap">
+            <div class="nav-logo-dots">
+                <span class="dot3"></span>
+                <span class="dot2"></span>
+                <span class="dot1"></span>
+            </div>
             <div class="nav-logo-text">דוב פינגר</div>
         </div>
         <div style="width:1px;height:28px;background:#ddd;margin:0 6px;"></div>
