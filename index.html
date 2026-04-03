@@ -67,7 +67,6 @@
         }
         .hero-logo {
             margin-bottom: 32px;
-            display: inline-block;
         }
         .logo-vav {
             position: relative; display: inline-block;
@@ -80,7 +79,7 @@
             height: 28px; display: block;
         }
         .hero-logo-text {
-            display: flex; align-items: center; gap: 16px; direction: rtl;
+            display: inline-flex; align-items: center; gap: 16px; direction: rtl;
         }
         .hero-logo-name {
             font-size: 36px; font-weight: 700; color: #fff; letter-spacing: -0.5px;
@@ -245,27 +244,19 @@
             background: var(--navy);
             padding: 104px 48px;
         }
-        .who-inner { max-width: 800px; margin: 0 auto; }
+        .who-inner { max-width: 680px; margin: 0 auto; text-align: right; }
         .section-tag {
             font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
             font-weight: 600; margin-bottom: 48px;
         }
         .who .section-tag { color: rgba(91,200,245,0.6); }
-        .manifesto-row {
-            border-top: 1px solid rgba(255,255,255,0.09);
-            padding: 30px 0;
-            display: flex; gap: 28px; align-items: baseline;
+        .about-text p {
+            font-size: clamp(15px, 1.8vw, 18px);
+            font-weight: 300; color: rgba(255,255,255,0.8); line-height: 1.9;
+            margin-bottom: 20px;
         }
-        .manifesto-row:last-child { border-bottom: 1px solid rgba(255,255,255,0.09); }
-        .mrow-n {
-            font-size: 10px; font-weight: 700; letter-spacing: 2px;
-            color: rgba(91,200,245,0.35); min-width: 28px; flex-shrink: 0; padding-top: 3px;
-        }
-        .mrow-t {
-            font-size: clamp(16px, 2.2vw, 21px);
-            font-weight: 400; color: rgba(255,255,255,0.8); line-height: 1.55;
-        }
-        .mrow-t strong { color: var(--teal); font-weight: 600; }
+        .about-text p:last-child { margin-bottom: 0; }
+        .about-text strong { color: var(--teal); font-weight: 600; }
 
         /* ── METHOD — vertical path ── */
         .method {
@@ -353,6 +344,9 @@
             transition: opacity .2s, transform .2s; flex-shrink: 0;
         }
 
+        .gi-static { cursor: default; grid-template-columns: 28px 1fr; }
+        .gi-static:hover .gi-title { color: var(--ink); }
+
         /* Philosophy tab */
         .philo-wrap { padding: 8px 0 32px; }
         .philo-header {
@@ -439,11 +433,38 @@
         .philo-bottom-line strong { color: var(--teal); }
 
         /* ── APP ── */
-        .app-s { background: var(--dark); padding: 104px 48px; text-align: center; }
-        .app-s-inner { max-width: 580px; margin: 0 auto; }
+        .app-s { background: var(--dark); padding: 104px 48px; }
+        .app-s-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 72px; }
+        .app-s-text { flex: 1; }
         .app-s .section-tag { color: rgba(91,200,245,0.6); margin-bottom: 28px; }
         .app-s h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: #fff; margin-bottom: 20px; }
         .app-s p { font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.4); line-height: 2; margin-bottom: 44px; }
+        .phone-mockup {
+            width: 220px; flex-shrink: 0;
+            background: #0a1628;
+            border: 2.5px solid rgba(91,200,245,0.3);
+            border-radius: 36px;
+            padding: 14px 10px 20px;
+            box-shadow: 0 0 60px rgba(91,200,245,0.1), 0 24px 48px rgba(0,0,0,0.4);
+        }
+        .phone-notch {
+            width: 60px; height: 8px; background: rgba(91,200,245,0.2);
+            border-radius: 4px; margin: 0 auto 12px;
+        }
+        .phone-screen-frame {
+            border-radius: 24px;
+            overflow: hidden;
+            height: 390px;
+            position: relative;
+        }
+        .phone-iframe {
+            position: absolute; top: 0; right: 0;
+            width: 375px; height: 730px;
+            border: none;
+            transform: scale(0.533);
+            transform-origin: top right;
+            pointer-events: none;
+        }
         .btn-outline {
             display: inline-block; border: 1.5px solid var(--teal);
             color: var(--teal); padding: 13px 32px; border-radius: 8px;
@@ -476,16 +497,44 @@
 
         /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
-            nav { padding: 0 20px; }
-            nav ul li:not(:last-child) { display: none; }
-            .hero { padding: 56px 24px 96px; }
+            body { overflow-x: hidden; }
+
+            /* נאב מובייל — שתי שורות */
+            nav {
+                padding: 0 16px;
+                height: auto;
+                flex-wrap: wrap;
+                gap: 0;
+            }
+            .nav-logo { flex: 0 0 auto; height: 52px; }
+            .nav-logo img { height: 26px; }
+            nav ul {
+                flex: 0 0 100%;
+                justify-content: space-around;
+                gap: 0;
+                border-top: 1px solid rgba(255,255,255,0.07);
+                padding: 8px 0;
+            }
+            nav ul li { display: block; }
+            nav a { font-size: 12px; color: rgba(255,255,255,0.6); }
+            .nav-cta { font-size: 12px; padding: 5px 12px; }
+
+            /* Hero */
+            .hero { padding: 80px 20px 80px; }
+            .hero-logo-name { font-size: 26px; }
+            .hero-logo-title { font-size: 14px; }
+            .hero-logo-dots img { height: 18px; }
+
+            /* שאר */
             .section-95 { padding: 72px 24px; }
             .s95-inner { grid-template-columns: 1fr; gap: 24px; }
             .who { padding: 72px 24px; }
-            .method { padding: 72px 24px; }
             .guides { padding: 72px 24px; }
             .gi { grid-template-columns: 24px 1fr 20px; gap: 14px; }
-            .app-s, .contact-s { padding: 72px 24px; }
+            .app-s { padding: 72px 24px; }
+            .app-s-inner { flex-direction: column; gap: 40px; }
+            .phone-mockup { display: none; }
+            .contact-s { padding: 72px 24px; }
         }
     </style>
 </head>
@@ -494,9 +543,10 @@
 <nav>
     <a href="#top" class="nav-logo"><img src="dots.png" alt="בדרך"></a>
     <ul>
-        <li><a href="#why">הפילוסופיה</a></li>
+        <li><a href="#guides" onclick="setTimeout(()=>goToTab('philo'),400)">הפילוסופיה</a></li>
         <li><a href="#guides">מדריכים</a></li>
-        <li><a href="#contact" class="nav-cta">בוא נדבר</a></li>
+        <li><a href="#about">אודות</a></li>
+        <li><a href="https://wa.me/972584305272" target="_blank" class="nav-cta">שלח הודעה</a></li>
     </ul>
 </nav>
 
@@ -504,14 +554,14 @@
 <section class="hero" id="top">
     <div class="hero-logo">
         <div class="hero-logo-text">
-            <span class="hero-logo-name">ד<span class="logo-vav">ו<span class="hero-logo-dots"><img src="dots.png" alt=""></span></span>ב פינגר</span>
-            <div class="hero-logo-sep"></div>
             <span class="hero-logo-title">מאמן מנטלי</span>
+            <div class="hero-logo-sep"></div>
+            <span class="hero-logo-name">ד<span class="logo-vav">ו<span class="hero-logo-dots"><img src="dots.png" alt=""></span></span>ב פינגר</span>
         </div>
     </div>
     <h1>תמיד <span class="hl">בדרך</span></h1>
     <div class="hero-rule"></div>
-    <p class="hero-sub">לא מחכים ליעד.<br>לא מודדים רק בסוף.<br>זזים — וזו ההצלחה.</p>
+    <p class="hero-sub">לא מחכים ליעד.<br>נהנים מהדרך.<br>משיגים מעבר ליעד.</p>
     <div class="hero-btns">
         <button class="btn-audience btn-aud-primary" onclick="document.getElementById('aud-sport').scrollIntoView({behavior:'smooth'})">ספורטאים ←</button>
         <button class="btn-audience btn-aud-secondary" onclick="document.getElementById('aud-stuck').scrollIntoView({behavior:'smooth'})">תרגיש תקוע? ←</button>
@@ -535,7 +585,7 @@
             <strong>אני כאן. תשלח הודעה, מבטיח לחזור.</strong>
         </div>
         <div class="aud-cta-row">
-            <a href="#contact" class="aud-btn-primary">בוא נדבר →</a>
+            <a href="https://wa.me/972584305272" target="_blank" class="aud-btn-primary">שלח הודעה, מבטיח לחזור →</a>
             <a href="#guides" class="aud-btn-ghost" onclick="setTimeout(()=>goToTab('sport'),400)">מדריכים לספורטאים ↓</a>
         </div>
     </div>
@@ -553,7 +603,7 @@
             בכל מקרה — <strong>תמיד תוכל לשלוח לי הודעה.</strong> מבטיח לחזור. מקסימום שיחה קצרה — אולי תועיל.
         </div>
         <div class="aud-cta-row">
-            <a href="#contact" class="aud-btn-primary">שלח הודעה →</a>
+            <a href="https://wa.me/972584305272" target="_blank" class="aud-btn-primary">שלח הודעה, מבטיח לחזור →</a>
             <a href="#guides" class="aud-btn-ghost" onclick="setTimeout(()=>goToTab('philo'),400)">קרא על המתודה ↓</a>
         </div>
     </div>
@@ -576,7 +626,18 @@
 <section class="who" id="about">
     <div class="who-inner">
         <div class="section-tag">כמה מילים עליי</div>
-        <!-- תוכן חדש — ממתין לטקסט מדוב -->
+        <div class="about-text">
+            <p>היי, נעים מאוד</p>
+            <p>אני דוב פינגר (דובי) — בן 54, נשוי באושר ואב גאה לשלושה ילדים מדהימים, כל אחד מוכשר בתחומו.</p>
+            <p>מאמן מנטלי מוסמך מטעם לונסקי-וינגייט, ובוגר קורס מיינדפולנס ממכללת MNLP.</p>
+            <p>הסיפור שלי קצת שונה: הלכתי ללמוד אימון מנטלי לא בשביל לעסוק בזה — אלא לעשות משהו בשביל עצמי. ולי? זה עזר מאוד.</p>
+            <p>עברתי הרבה בחיים והמון תחומי עניין — כי ככה אני. פעם חשבתי שמשהו לא בסדר איתי שאני לא "נדבק" לתחום אחד. היום אני יודע שזו בדיוק החוזקה שלי. אבל זה כבר סיפור אחר, לפעם אחרת.</p>
+            <p>לעניינינו — לאט לאט, עם השנים, מצאתי את עצמי נכנס לזה יותר ויותר. ומגלה שאני נהנה. שאני תורם. שאני עוזר לאנשים לצאת ממקומות פחות נעימים. מה לעשות — זה עושה לי טוב, עד כדי התרוממות רוח.</p>
+            <p>עבדתי עם ספורטאים, עם קבוצות כדורגל, ועם אנשים כמוני וכמוך — בכל גיל ובכל שכבה.</p>
+            <p><strong>השיטה שלי פרקטית. מאוד.</strong> תוך כמה פגישות תקבל כלים, הבנה ומודעות — ותמשיך קדימה. לא תהליך אינסופי, לא עמום. משהו שאתה יכול לקחת ולהשתמש בו מחר בבוקר.</p>
+            <p>אם משהו כאן דיבר אליך — שלח הודעה. מבטיח לחזור.</p>
+            <a href="https://wa.me/972584305272" target="_blank" class="aud-btn-primary" style="display:inline-block;margin-top:28px;">שלח הודעה, מבטיח לחזור →</a>
+        </div>
     </div>
 </section>
 
@@ -646,6 +707,30 @@
         <!-- הלכתי לאיבוד בדרך -->
         <div class="guide-panel" id="panel-lost">
             <div class="guide-list">
+                <div class="gi gi-static">
+                    <div class="gi-num">01</div>
+                    <div class="gi-body"><div class="gi-title">מה הצעד הבא שלי?</div><div class="gi-desc">כשאין כיוון ברור — איך מוצאים את התנועה הבאה</div></div>
+                </div>
+                <div class="gi gi-static">
+                    <div class="gi-num">02</div>
+                    <div class="gi-body"><div class="gi-title">לצאת מהתקיעות</div><div class="gi-desc">תקוע לא אומר שנגמר — אתה רק בנקודה אחת בדרך</div></div>
+                </div>
+                <div class="gi gi-static">
+                    <div class="gi-num">03</div>
+                    <div class="gi-body"><div class="gi-title">להפסיק לשפוט את עצמך</div><div class="gi-desc">החץ השני שאנחנו יורים בעצמנו — ואיך עוצרים</div></div>
+                </div>
+                <div class="gi gi-static">
+                    <div class="gi-num">04</div>
+                    <div class="gi-body"><div class="gi-title">מוטיבציה כשהכל אפור</div><div class="gi-desc">מוטיבציה היא רק התחלה — התמדה זו הדרך</div></div>
+                </div>
+                <div class="gi gi-static">
+                    <div class="gi-num">05</div>
+                    <div class="gi-body"><div class="gi-title">לבנות שגרה מאפס</div><div class="gi-desc">תנועה קטנה ויומיומית שמחזירה את תחושת ההתקדמות</div></div>
+                </div>
+                <div class="gi gi-static">
+                    <div class="gi-num">06</div>
+                    <div class="gi-body"><div class="gi-title">לחזור למרכז</div><div class="gi-desc">אין "נכשלתי" — יש רק "יצאתי וחזרתי"</div></div>
+                </div>
             </div>
         </div>
 
@@ -724,10 +809,18 @@
 <!-- APP -->
 <section class="app-s" id="app">
     <div class="app-s-inner">
-        <div class="section-tag">אפליקציה חינמית</div>
-        <h2>שיטת בדרך</h2>
-        <p>7 דקות ביום. יעד אחד. מאמן AI שמלווה אותך.<br>האפליקציה שבנויה על השיטה שלי.</p>
-        <a href="https://mrdfdd-source.github.io/bderech-/" target="_blank" class="btn-outline">נסה עכשיו — חינם →</a>
+        <div class="app-s-text">
+            <div class="section-tag">אפליקציה חינמית</div>
+            <h2>שיטת בדרך</h2>
+            <p>7 דקות ביום. יעד אחד. מאמן AI שמלווה אותך.<br>האפליקציה שבנויה על השיטה שלי.</p>
+            <a href="https://mrdfdd-source.github.io/bderech-/" target="_blank" class="btn-outline">נסה עכשיו — חינם →</a>
+        </div>
+        <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            <div class="phone-screen-frame">
+                <iframe class="phone-iframe" src="https://mrdfdd-source.github.io/bderech-/" scrolling="no"></iframe>
+            </div>
+        </div>
     </div>
 </section>
 
