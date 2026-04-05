@@ -1,0 +1,11 @@
+{
+  "name": "דוב פינגר — מאמן מנטלי",
+  "short_name": "דוב פינגר",
+  "start_url": "/dov-finger/",
+  "display": "standalone",
+  "background_color": "#0d1a2e",
+  "theme_color": "#0d1a2e",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

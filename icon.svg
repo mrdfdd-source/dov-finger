@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="100" fill="#0d1a2e"/>
+  <text
+    x="256" y="340"
+    font-family="'Rubik', 'Arial Hebrew', 'David', sans-serif"
+    font-size="300"
+    font-weight="700"
+    fill="#5bc8f5"
+    text-anchor="middle"
+    direction="rtl"
+  >ד</text>
+</svg>
