@@ -12,7 +12,7 @@
   >דוב פינגר</text>
 
   <!-- נקודות: קטנה מעל ו (ימין), עולות שמאלה וגדלות -->
-  <circle cx="385" cy="228" r="11" fill="#5bc8f5" opacity="0.45"/>
+  <circle cx="385" cy="228" r="11" fill="#5bc8f5"/>
   <circle cx="348" cy="200" r="18" fill="#5bc8f5" opacity="0.70"/>
-  <circle cx="305" cy="168" r="27" fill="#5bc8f5"/>
+  <circle cx="315" cy="172" r="27" fill="#5bc8f5" opacity="0.40"/>
 </svg>
