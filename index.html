@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>דוב פינגר — מאמן מנטלי</title>
-    <link rel="icon" href="dov-logo.png" type="image/png">
-    <link rel="apple-touch-icon" href="dov-logo.png">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icon.svg">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0d1a2e">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,8 +24,8 @@
             --muted: #999;
         }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Rubik', sans-serif; direction: rtl; background: var(--white); color: var(--ink); }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Rubik', sans-serif; direction: rtl; background: var(--white); color: var(--ink); overflow-x: hidden; max-width: 100vw; }
 
         /* ── NAV ── */
         nav {

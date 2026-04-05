@@ -1,12 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="100" fill="#0d1a2e"/>
-  <text
-    x="256" y="340"
-    font-family="'Rubik', 'Arial Hebrew', 'David', sans-serif"
-    font-size="300"
-    font-weight="700"
-    fill="#5bc8f5"
-    text-anchor="middle"
-    direction="rtl"
-  >ד</text>
+  <rect width="512" height="512" rx="90" fill="#0d1a2e"/>
+  <!-- טיל dot decoration -->
+  <circle cx="140" cy="110" r="28" fill="#5bc8f5"/>
+  <circle cx="200" cy="110" r="18" fill="#5bc8f5" opacity="0.6"/>
+  <circle cx="248" cy="110" r="12" fill="#5bc8f5" opacity="0.35"/>
+  <!-- שם -->
+  <text x="256" y="290" font-family="Arial, sans-serif" font-size="110" font-weight="700" fill="#ffffff" text-anchor="middle">דוב</text>
+  <text x="256" y="390" font-family="Arial, sans-serif" font-size="72" font-weight="300" fill="#5bc8f5" text-anchor="middle">פינגר</text>
 </svg>
