@@ -6,6 +6,6 @@
   "background_color": "#0d1a2e",
   "theme_color": "#0d1a2e",
   "icons": [
-    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+    { "src": "dov-logo.png", "sizes": "any", "type": "image/png" }
   ]
 }
